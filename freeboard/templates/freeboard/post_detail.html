@@ -1,0 +1,30 @@
+<!-- freeboard/templates/freeboard/post_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ post.title }}</h2>
+<p>{{ post.content }}</p>
+<p><small>작성자: {{ post.author }} | 작성일: {{ post.created_at }}</small></p>
+
+<hr>
+<h4>댓글</h4>
+{% for comment in comments %}
+    <p><strong>{{ comment.author }}</strong>: {{ comment.content }} ({{ comment.created_at }})</p>
+{% empty %}
+    <p>댓글이 없습니다.</p>
+{% endfor %}
+
+<hr>
+{% if user.is_authenticated %}
+    <h5>댓글 작성</h5>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">댓글 등록</button>
+    </form>
+{% else %}
+    <p>댓글을 작성하려면 <a href="{% url 'common:login' %}">로그인</a>이 필요합니다.</p>
+{% endif %}
+{% endblock %}

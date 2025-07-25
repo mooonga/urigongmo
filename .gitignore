@@ -1,0 +1,16 @@
+# 가상환경
+kg_2/
+venv/
+
+# Python 관련
+__pycache__/
+*.py[cod]
+
+# Django 관련
+db.sqlite3
+media/
+staticfiles/
+
+# 에디터 관련
+.vscode/
+.env

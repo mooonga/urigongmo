@@ -1,0 +1,18 @@
+<!-- templates/contest/upload_entry.html -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>출품작 제출</title>
+</head>
+<body>
+    <h1>공모전 출품작 업로드</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">제출하기</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>공모전 리스트</title>
+</head>
+<body>
+    <h1>📌 현재 진행 중인 공모전</h1>
+    <ul>
+        {% for poster in posters %}
+            <li>
+                <li>
+                    <h3><a href="{% url 'poster:poster_detail' poster.id %}">{{ poster.title }}</a> ({{ poster.d_day }})</h3>
+                    <img src="{{ poster.image.url }}" alt="포스터" width="150"><br>
+                </li>
+
+                주최: {{ poster.organization }}<br>
+                참여대상: {{ poster.target }}<br>
+                기간: {{ poster.start_date }} ~ {{ poster.end_date }}<br>
+                <a href="{{ poster.website }}" target="_blank">홈페이지로 이동</a>
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+</body>
+</html>

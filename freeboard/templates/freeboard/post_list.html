@@ -1,0 +1,12 @@
+<h1>자유게시판</h1>
+
+<ul>
+  {% for post in posts %}
+    <li>
+      <a href="{% url 'freeboard_post_detail' post.id %}">{{ post.title }}</a>
+      - {{ post.created_at|date:"Y-m-d H:i" }}
+    </li>
+  {% empty %}
+    <li>게시글이 없습니다.</li>
+  {% endfor %}
+</ul>

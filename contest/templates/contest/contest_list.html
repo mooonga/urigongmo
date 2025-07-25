@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}공모전 목록{% endblock %}
+
+{% block content %}
+  <h2>공모전 목록</h2>
+  <ul>
+    {% for contest in contests %}
+      <li>{{ contest.title }} ({{ contest.start_date }} ~ {{ contest.end_date }})</li>
+    {% empty %}
+      <li>진행 중인 공모전이 없습니다.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
