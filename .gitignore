@@ -8,9 +8,10 @@ __pycache__/
 
 # Django 관련
 db.sqlite3
-media/
 staticfiles/
 
 # 에디터 관련
 .vscode/
+
+#환경 파일
 .env
