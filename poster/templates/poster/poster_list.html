@@ -10,18 +10,18 @@
     <ul>
         {% for poster in posters %}
             <li>
-                <li>
-                    <h3><a href="{% url 'poster:poster_detail' poster.id %}">{{ poster.title }}</a> ({{ poster.d_day }})</h3>
-                    <img src="{{ poster.image.url }}" alt="포스터" width="150"><br>
-                </li>
-
+                <h3><a href="{% url 'poster:poster_detail' poster.id %}">{{ poster.title }}</a> ({{ poster.d_day }})</h3>
+                <img src="{{ poster.image.url }}" alt="포스터" width="150"><br>db
                 주최: {{ poster.organization }}<br>
                 참여대상: {{ poster.target }}<br>
                 기간: {{ poster.start_date }} ~ {{ poster.end_date }}<br>
                 <a href="{{ poster.website }}" target="_blank">홈페이지로 이동</a>
+                <hr>
             </li>
-            <hr>
+        {% empty %}
+            <li>등록된 공모전이 없습니다.</li>
         {% endfor %}
     </ul>
 </body>
 </html>
+
