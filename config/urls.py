@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('contest/', include('contest.urls')),
-    path('', views.contest_list, name='home'),  # 기본 경로 → 공모전 목록 페이지
+    path('', include('home.urls')),  # 기본 경로 → 공모전 목록 페이지
     path('freeboard/', include('freeboard.urls')),  # 자유게시판
     path('poster/', include('poster.urls')),
 ]
