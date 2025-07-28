@@ -18,9 +18,8 @@ class Poster(models.Model):
     extra = models.TextField(blank=True, null=True)  # 추가혜택
     description = models.TextField()                 # 상세내용
     category_id = models.IntegerField(null=True, blank=True)  #카테고리 id
-
-
     created_at = models.DateTimeField(auto_now_add=True)  # 생성일시
+    views = models.IntegerField(default=0)   #조회수 저장
 
     def __str__(self):
         return self.title

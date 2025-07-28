@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'contest.apps.ContestConfig',
     'freeboard',
     'poster',
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -117,7 +118,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # 프로젝트 루트에 static 폴더가 있다면
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -133,8 +138,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # login
-LOGIN_REDIRECT_URL = '/contest/list/'
-LOGOUT_REDIRECT_URL = '/contest/login/'
+LOGIN_URL = '/contest/login/'  # 로그인 페이지 경로 지정 
+LOGIN_REDIRECT_URL = '/contest/list/'  # 로그인 성공 후 이동
+LOGOUT_REDIRECT_URL = '/contest/login/'  # 로그아웃 후 이동
 
 # templates
 TEMPLATES = [

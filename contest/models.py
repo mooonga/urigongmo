@@ -11,6 +11,7 @@ class User(AbstractUser):
     created_at = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(null=True, blank=True)
 
+#일반 사용자 정보 (닉네임, 나이 등)
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=100)
@@ -18,6 +19,7 @@ class UserProfile(models.Model):
     age = models.IntegerField(null=True, blank=True)
     region = models.CharField(max_length=100, blank=True)
 
+#사업자 정보 (회사명, 연락처, 승인 여부 등)
 class BusinessProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=100)
@@ -26,6 +28,7 @@ class BusinessProfile(models.Model):
     phone_number = models.CharField(max_length=20)
     approval_status = models.CharField(max_length=10, choices=[('대기중', '대기중'), ('승인', '승인'), ('거절', '거절')])
 
+#공모전 정보
 class Contest(models.Model):
     title = models.CharField(max_length=200)
     agency = models.CharField(max_length=200, blank=True, null=True)  # 주관기관
@@ -35,14 +38,16 @@ class Contest(models.Model):
     end_date = models.DateField()
     
     CONTEST_STATUS_CHOICES = [
+        ('대기중', '대기중'),
         ('모집중', '모집중'),
         ('심사중', '심사중'),
         ('종료', '종료'),
     ]
-    status = models.CharField(max_length=20, choices=CONTEST_STATUS_CHOICES, default='모집중')
+    status = models.CharField(
+        max_length=20,
+        choices=CONTEST_STATUS_CHOICES,
+        default='대기중')
 
-    def __str__(self):
-        return self.title
 
     # 평가 기준별 가중치
     weight_idea = models.FloatField(default=0.25)
@@ -53,6 +58,7 @@ class Contest(models.Model):
     def __str__(self):
         return self.title
 
+#사용자 출품작
 class Entry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     contest = models.ForeignKey(Contest, on_delete=models.CASCADE)
@@ -66,39 +72,21 @@ class Entry(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.contest.title}"
 
+#일반 심사 점수
 class Score(models.Model):
-    CRITERIA_CHOICES = [
+    SCORE_TYPE_CHOICES = [('user', '일반심사'), ('business', '사업자심사')]
+
+    judge = models.ForeignKey(User, on_delete=models.CASCADE, related_name='scores')
+    entry = models.ForeignKey('Entry', on_delete=models.CASCADE, related_name='scores')
+    criteria = models.CharField(max_length=50, choices=[
         ('기획력', '기획력'),
         ('창의성', '창의성'),
         ('실현가능성', '실현가능성'),
         ('완성도', '완성도'),
-    ]
-
-    judge = models.ForeignKey(User, on_delete=models.CASCADE, related_name='judge_scores')
-    entry = models.ForeignKey('Entry', on_delete=models.CASCADE, related_name='entry_scores')
+    ])
     score = models.PositiveIntegerField()
-    criteria = models.CharField(max_length=50, choices=CRITERIA_CHOICES)
+    score_type = models.CharField(max_length=10, choices=SCORE_TYPE_CHOICES, default='user')
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.judge.username} → {self.entry.id} ({self.criteria}: {self.score})"
-
-class BusinessScore(models.Model):
-    CRITERIA_CHOICES = [
-        ('기획력', '기획력'),
-        ('창의성', '창의성'),
-        ('실현가능성', '실현가능성'),
-        ('완성도', '완성도'),
-    ]
-
-    judge_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='business_scores')
-    entry = models.ForeignKey('Entry', on_delete=models.CASCADE, related_name='business_entry_scores')
-    score = models.PositiveIntegerField()
-    criteria = models.CharField(max_length=50, choices=CRITERIA_CHOICES)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"[지자체:{self.judge_user.username}] {self.entry.id} - {self.criteria}: {self.score}"
 
 class AdminLog(models.Model):
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin_logs')

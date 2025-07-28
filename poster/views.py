@@ -7,4 +7,6 @@ def poster_list(request):
 
 def poster_detail(request, pk):
     poster = get_object_or_404(Poster, pk=pk)
+    poster.views += 1  # 조회수 1 증가
+    poster.save()      # DB에 저장
     return render(request, 'poster/poster_detail.html', {'poster': poster})

@@ -1,13 +1,12 @@
-# contest/forms.py
-
 from django import forms
-from .models import Entry
+from contest.models import Entry
 
+# 출품작 등록 폼
 class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = ['contest', 'category_id', 'status', 'submission_file']
-    
+
     def clean_submission_file(self):
         file = self.cleaned_data.get('submission_file', False)
         if file:

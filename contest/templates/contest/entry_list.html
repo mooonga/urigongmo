@@ -1,0 +1,28 @@
+<!-- contest/templates/contest/entry_list.html -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>출품작 목록</title>
+</head>
+<body>
+    <h1>출품작 목록</h1>
+
+    {% if entries %}
+        <ul>
+            {% for entry in entries %}
+                <li>
+                    <strong>공모전:</strong> {{ entry.contest.title }}<br>
+                    <strong>카테고리:</strong> {{ entry.get_category_id_display }}<br>
+                    <strong>상태:</strong> {{ entry.status }}<br>
+                    <strong>제출일:</strong> {{ entry.created_at|date:"Y-m-d H:i" }}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>출품작이 없습니다.</p>
+    {% endif %}
+</body>
+</html>

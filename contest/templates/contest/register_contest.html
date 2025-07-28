@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>공모전 등록</title>
+</head>
+<body>
+  <h1>📄 공모전 등록</h1>
+
+  <!-- 에러 메시지 출력 -->
+  {% if form.non_field_errors %}
+    <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
+      {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+
+    <label for="id_title">공모전 제목:</label><br>
+    {{ form.title }}<br><br>
+
+    <label for="id_agency">주관 기관:</label><br>
+    {{ form.agency }}<br><br>
+
+    <label for="id_category">공모 분야:</label><br>
+    {{ form.category }}<br><br>
+
+    <label for="id_description">공모전 설명:</label><br>
+    {{ form.description }}<br><br>
+
+    <label for="id_start_date">시작일:</label><br>
+    {{ form.start_date }}<br><br>
+
+    <label for="id_end_date">마감일:</label><br>
+    {{ form.end_date }}<br><br>
+
+    <fieldset style="border: 1px solid #ccc; padding: 10px;">
+      <legend><strong>평가기준별 가중치 (합계 1.0)</strong></legend>
+
+      <label for="id_weight_idea">기획력:</label><br>
+      {{ form.weight_idea }}<br><br>
+
+      <label for="id_weight_creativity">창의성:</label><br>
+      {{ form.weight_creativity }}<br><br>
+
+      <label for="id_weight_feasibility">실현 가능성:</label><br>
+      {{ form.weight_feasibility }}<br><br>
+
+      <label for="id_weight_completion">완성도:</label><br>
+      {{ form.weight_completion }}<br><br>
+    </fieldset>
+
+    <br>
+    <button type="submit">공모전 등록하기</button>
+  </form>
+
+  <br>
+  <a href="{% url 'contest_list' %}">← 공모전 목록으로 돌아가기</a>
+</body>
+</html>

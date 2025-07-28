@@ -18,6 +18,7 @@
     <p><strong>상세내용:</strong><br>{{ poster.description }}</p>
     <p><strong>홈페이지:</strong> <a href="{{ poster.website }}">링크</a></p>
     <p><strong>접수기간:</strong> {{ poster.start_date|date:"F d, Y" }} ~ {{ poster.end_date|date:"F d, Y" }}</p>
+    <p>조회수: {{ poster.views }}회</p>
 
     <br>
     <a href="{% url 'poster:poster_list' %}">← 목록으로 돌아가기</a>
