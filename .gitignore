@@ -1,17 +1,16 @@
-# 가상환경
-kg_2/
-venv/
-
 # Python 관련
 __pycache__/
 *.py[cod]
 
-# Django 관련
-db.sqlite3
-staticfiles/
-
-# 에디터 관련
+# VS Code 설정
 .vscode/
 
-#환경 파일
+# 환경 변수 파일 (만약 존재한다면)
 .env
+
+# 로그
+*.log
+
+# pip 가상환경 폴더 (있는 경우)
+venv/
+media/poster_images/

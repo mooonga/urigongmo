@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Poster
 
 def poster_list(request):
-    posters = Poster.objects.all().order_by('-created_at')
+    posters = Poster.objects.all().order_by('id')
     return render(request, 'poster/poster_list.html', {'posters': posters})
 
 def poster_detail(request, pk):
