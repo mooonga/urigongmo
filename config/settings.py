@@ -24,7 +24,6 @@ SECRET_KEY = 'django-insecure-3&@fqyg7ok9vp9gw+swce1+$gyvr0kv7#xa6m#h+@7!n_brkde
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -119,7 +118,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # 프로젝트 루트에 static 폴더가 있다면
 ]
