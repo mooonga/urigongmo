@@ -11,13 +11,14 @@
 
 ```bash
 git clone https://github.com/foreverwon/kg_2
-cd contest-portal
+cd kg_2 #복제된 디렉터리로 이동
 
 # 가상환경 생성 (최초 1회만)
 python -m venv kg_2
 
 # 가상환경 활성화 (매번 작업 시)
-source kg_2/bin/activate  # Windows: kg_2\Scripts\activate
+source kg_2/bin/activate       # macOS/Linux
+kg_2\Scripts\activate          # Windows
 ```
 
 ### 2. 패키지 설치
