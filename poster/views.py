@@ -1,9 +1,35 @@
+# views.py
 from django.shortcuts import render, get_object_or_404
 from .models import Poster
+from django.db.models import Q
 
 def poster_list(request):
-    posters = Poster.objects.all().order_by('id')
-    return render(request, 'poster/poster_list.html', {'posters': posters})
+    query = request.GET.get('q', '')  # 검색어
+    selected_category = request.GET.get('category', '')  # 카테고리 필터
+
+    posters = Poster.objects.all()
+
+    # 검색 필터
+    if query:
+        posters = posters.filter(
+            Q(title__icontains=query) |
+            Q(organization__icontains=query) |
+            Q(description__icontains=query)
+        )
+
+    # 카테고리 필터
+    if selected_category:
+        posters = posters.filter(category=selected_category)
+
+    # 중복 없는 카테고리 목록
+    categories = Poster.objects.values_list('category', flat=True).distinct()
+
+    return render(request, 'poster/poster_list.html', {
+        'posters': posters.order_by('id'),
+        'query': query,
+        'selected_category': selected_category,
+        'categories': categories
+    })
 
 def poster_detail(request, pk):
     poster = get_object_or_404(Poster, pk=pk)

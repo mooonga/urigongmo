@@ -1,27 +1,28 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>공모전 리스트</title>
-</head>
-<body>
-    <h1>📌 현재 진행 중인 공모전</h1>
-    <ul>
-        {% for poster in posters %}
-            <li>
-                <h3><a href="{% url 'poster:poster_detail' poster.id %}">{{ poster.title }}</a> ({{ poster.d_day }})</h3>
-                <img src="{{ poster.image.url }}" alt="포스터" width="150"><br>db
-                주최: {{ poster.organization }}<br>
-                참여대상: {{ poster.target }}<br>
-                기간: {{ poster.start_date }} ~ {{ poster.end_date }}<br>
-                <a href="{{ poster.website }}" target="_blank">홈페이지로 이동</a>
-                <hr>
-            </li>
-        {% empty %}
-            <li>등록된 공모전이 없습니다.</li>
+<form method="get" class="search-bar">
+    <input type="text" name="q" placeholder="공모전 검색" value="{{ query }}">
+    <select name="category">
+        <option value="">전체 분야</option>
+        {% for c in categories %}
+            <option value="{{ c }}" {% if selected_category == c %}selected{% endif %}>{{ c }}</option>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    </select>
+    <button type="submit">검색</button>
+</form>
 
+<hr>
+
+<div class="poster-list">
+    {% for p in posters %}
+        <div class="poster-card">
+            <a href="{% url 'poster:poster_detail' p.pk %}">
+                <img src="{{ p.image.url }}" alt="포스터 이미지" width="200">
+                <h3>{{ p.title }}</h3>
+            </a>
+            <p>{{ p.organization }} | {{ p.category }}</p>
+            <p>{{ p.start_date }} ~ {{ p.end_date }}</p>
+            <p>조회수: {{ p.views }}</p>
+        </div>
+    {% empty %}
+        <p>검색 결과가 없습니다.</p>
+    {% endfor %}
+</div>
