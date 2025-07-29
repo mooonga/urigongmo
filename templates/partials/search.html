@@ -1,0 +1,36 @@
+{# templates/partials/search.html #}
+{% load static %}
+
+<section class="search-section">
+  <div class="search-container">
+    <div class="search-wrapper">
+      <div class="search-input-wrapper">
+        <img class="search-icon" src="{% static 'img/search.svg' %}" alt="검색" />
+        <input type="text" class="search-input" placeholder="공모전 검색" />
+      </div>
+      <div class="search-filters">
+        <select class="filter-select">
+          <option>모든 분야</option>
+          <option>AI</option>
+          <option>일러스트</option>
+          <option>디자인</option>
+          <option>에세이</option>
+          <option>영상</option>
+          <option>아이디어</option>
+          <option>과학</option>
+        </select>
+        <select class="filter-select">
+          <option>전국</option>
+          <option>서울</option>
+          <option>경기도</option>
+          <option>강원도</option>
+          <option>충청도</option>
+          <option>경상도</option>
+          <option>전라도</option>
+          <option>세종/대전/대구</option>
+          <option>제주도</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>

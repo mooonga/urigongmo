@@ -1,0 +1,31 @@
+{% extends 'base_mypage.html' %}
+{% load static %}
+
+{% block tab_content %}
+<div class="content-card">
+    <h2 class="card-title">저장된 콘텐츠</h2>
+  <ul class="saved-content-list">
+    {# 공모전 항목 #}
+    {% for c in saved_contests %}
+      <li class="item contest">
+        <span class="type-label">공모전</span>
+        <a href="#" class="title">{{ c.title }}</a>
+        <span class="info">{{ c.d_day }}</span>
+      </li>
+    {% endfor %}
+
+    {# 커뮤니티 게시물 항목 #}
+    {% for p in saved_posts %}
+      <li class="item post">
+        <span class="type-label">게시글</span>
+        <a href="#" class="title">{{ p.title }}</a>
+        <span class="info">{{ p.date }}</span>
+      </li>
+    {% endfor %}
+
+    {% if saved_contests|length == 0 and saved_posts|length == 0 %}
+      <li class="empty">저장된 콘텐츠가 없습니다.</li>
+    {% endif %}
+  </ul>
+</div>
+{% endblock %}
