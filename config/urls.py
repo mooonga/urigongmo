@@ -19,11 +19,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from poster import views as poster_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('contest/', include('contest.urls', namespace='contest')),
-    path('', include('home.urls')),  # 기본 경로 → 공모전 목록 페이지
+    path('', poster_views.home, name='home'),  # 메인페이지 경로
     path('freeboard/', include('freeboard.urls')),  # 자유게시판
     path('poster/', include('poster.urls')),  #공모전
 ]

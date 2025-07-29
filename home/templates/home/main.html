@@ -1,18 +1,74 @@
-<!-- home/templates/home/main.html -->
+<!-- templates/home/main.html -->
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>메인페이지 테스트</title>
+  <title>우리동네 공모전</title>
+  <style>
+    .category-buttons {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .category-buttons a {
+      padding: 8px 15px;
+      border: 1px solid #aaa;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+    }
+    .category-buttons a.active {
+      background: #333;
+      color: white;
+      font-size: bold;
+    }
+  </style>
 </head>
 <body>
-  <h1>메인페이지(임시)</h1>
+  <h1>🎯 우리동네 공모전</h1>
 
+  <!-- 메뉴 -->
   <ul>
-    <li><a href="/poster/">📌 공모전 목록</a></li>
+    <li><a href="/poster/">📌 공모전 전체 보기</a></li>
     <li><a href="/freeboard/">💬 자유게시판</a></li>
     <li><a href="/mypage/">🙋 마이페이지</a></li>
     <li><a href="/contest/">📄 커뮤니티(contest 앱)</a></li>
   </ul>
+
+  <!-- 검색 -->
+  <form method="get">
+    <input type="text" name="q" placeholder="공모전 검색" value="{{ query }}">
+    <button type="submit">검색</button>
+  </form>
+
+  <!-- 카테고리 버튼 필터 -->
+  <div class="category-buttons">
+    <a href="/" class="{% if not selected_category %}active{% endif %}">전체</a>
+    {% for c in categories %}
+      <a href="/?category={{ c }}" class="{% if selected_category == c %}active{% endif %}">{{ c }}</a>
+    {% endfor %}
+  </div>
+
+  <hr>
+
+  <!-- 공모전 리스트 -->
+  {% for p in posters %}
+    <div style="margin-bottom:30px;">
+      <a href="{% url 'poster:poster_detail' p.pk %}">
+        {% if p.image %}
+          <img src="{{ p.image.url }}" width="150"><br>
+        {% endif %}
+        <strong>{{ p.title }}</strong>
+      </a><br>
+      {{ p.organization }} | {{ p.category }}<br>
+      {{ p.start_date }} ~ {{ p.end_date }}<br>
+      조회수: {{ p.views }}
+    </div>
+  {% empty %}
+    <p>공모전이 없습니다.</p>
+  {% endfor %}
 </body>
 </html>
