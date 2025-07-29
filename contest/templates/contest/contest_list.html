@@ -1,11 +1,7 @@
 <!-- templates/contest/contest_list.html -->
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>공모전 목록</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>공모전 목록</h1>
     <ul>
         {% for contest in contests %}
@@ -17,5 +13,4 @@
             <li>등록된 공모전이 없습니다.</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

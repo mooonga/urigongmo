@@ -1,12 +1,24 @@
-<h1>자유게시판</h1>
+<!-- freeboard/templates/freeboard/post_list.html -->
+<!-- 게시글 목록 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>자유게시판 목록</title>
+</head>
+<body>
+    <h2>자유게시판</h2>
+    <a href="{% url 'freeboard:post_create' %}">글쓰기</a>
+    <hr>
 
-<ul>
-  {% for post in posts %}
-    <li>
-      <a href="{% url 'freeboard_post_detail' post.id %}">{{ post.title }}</a>
-      - {{ post.created_at|date:"Y-m-d H:i" }}
-    </li>
-  {% empty %}
-    <li>게시글이 없습니다.</li>
-  {% endfor %}
-</ul>
+    {% for post in posts %}
+        <div>
+            <h3><a href="{% url 'freeboard:post_detail' post.pk %}">{{ post.title }}</a></h3>
+            <p>작성자: {{ post.author }} | 작성일: {{ post.created_at|date:"Y-m-d H:i" }}</p>
+        </div>
+        <hr>
+    {% empty %}
+        <p>게시글이 없습니다.</p>
+    {% endfor %}
+</body>
+</html>

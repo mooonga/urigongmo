@@ -1,16 +1,15 @@
 <!-- contest/templates/contest/login.html -->
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>로그인</title>
-</head>
-<body>
-    <h2>로그인</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">로그인</button>
+{% extends 'base.html' %}
+
+{% block title %}로그인{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">로그인</h2>
+    <form method="post" class="w-50 mx-auto">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary mt-3">로그인</button>
     </form>
-</body>
-</html>
+  </div>
+{% endblock %}

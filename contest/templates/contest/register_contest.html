@@ -1,63 +1,79 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>공모전 등록</title>
-</head>
-<body>
-  <h1>📄 공모전 등록</h1>
+{% extends 'base.html' %}
 
-  <!-- 에러 메시지 출력 -->
-  {% if form.non_field_errors %}
-    <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
-      {% for error in form.non_field_errors %}
-        <p>{{ error }}</p>
-      {% endfor %}
-    </div>
-  {% endif %}
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="mb-4">공모전 등록</h1>
 
-  <form method="post">
-    {% csrf_token %}
+    <!-- 에러 메시지 출력 -->
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
 
-    <label for="id_title">공모전 제목:</label><br>
-    {{ form.title }}<br><br>
+    <form method="post">
+      {% csrf_token %}
 
-    <label for="id_agency">주관 기관:</label><br>
-    {{ form.agency }}<br><br>
+      <div class="mb-3">
+        <label for="id_title">공모전 제목:</label>
+        {{ form.title }}
+      </div>
 
-    <label for="id_category">공모 분야:</label><br>
-    {{ form.category }}<br><br>
+      <div class="mb-3">
+        <label for="id_agency">주관 기관:</label>
+        {{ form.agency }}
+      </div>
 
-    <label for="id_description">공모전 설명:</label><br>
-    {{ form.description }}<br><br>
+      <div class="mb-3">
+        <label for="id_category">공모 분야:</label>
+        {{ form.category }}
+      </div>
 
-    <label for="id_start_date">시작일:</label><br>
-    {{ form.start_date }}<br><br>
+      <div class="mb-3">
+        <label for="id_description">공모전 설명:</label>
+        {{ form.description }}
+      </div>
 
-    <label for="id_end_date">마감일:</label><br>
-    {{ form.end_date }}<br><br>
+      <div class="mb-3">
+        <label for="id_start_date">시작일:</label>
+        {{ form.start_date }}
+      </div>
 
-    <fieldset style="border: 1px solid #ccc; padding: 10px;">
-      <legend><strong>평가기준별 가중치 (합계 1.0)</strong></legend>
+      <div class="mb-3">
+        <label for="id_end_date">마감일:</label>
+        {{ form.end_date }}
+      </div>
 
-      <label for="id_weight_idea">기획력:</label><br>
-      {{ form.weight_idea }}<br><br>
+      <fieldset class="border p-3 mb-3">
+        <legend><strong>평가기준별 가중치 (합계 1.0)</strong></legend>
 
-      <label for="id_weight_creativity">창의성:</label><br>
-      {{ form.weight_creativity }}<br><br>
+        <div class="mb-2">
+          <label for="id_weight_idea">기획력:</label>
+          {{ form.weight_idea }}
+        </div>
 
-      <label for="id_weight_feasibility">실현 가능성:</label><br>
-      {{ form.weight_feasibility }}<br><br>
+        <div class="mb-2">
+          <label for="id_weight_creativity">창의성:</label>
+          {{ form.weight_creativity }}
+        </div>
 
-      <label for="id_weight_completion">완성도:</label><br>
-      {{ form.weight_completion }}<br><br>
-    </fieldset>
+        <div class="mb-2">
+          <label for="id_weight_feasibility">실현 가능성:</label>
+          {{ form.weight_feasibility }}
+        </div>
+
+        <div class="mb-2">
+          <label for="id_weight_completion">완성도:</label>
+          {{ form.weight_completion }}
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-primary">공모전 등록하기</button>
+    </form>
 
     <br>
-    <button type="submit">공모전 등록하기</button>
-  </form>
-
-  <br>
-  <a href="{% url 'contest_list' %}">← 공모전 목록으로 돌아가기</a>
-</body>
-</html>
+    <a href="{% url 'contest:business_contest_list' %}">← 공모전 목록으로 돌아가기</a>
+  </div>
+{% endblock %}

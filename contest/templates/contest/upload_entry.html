@@ -1,18 +1,19 @@
 <!-- templates/contest/upload_entry.html -->
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>출품작 제출</title>
-</head>
-<body>
-    <h1>공모전 출품작 업로드</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">📤 공모전 출품작 업로드</h2>
 
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">제출하기</button>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-success mt-3">제출하기</button>
     </form>
-</body>
-</html>
+
+    <br>
+    <a href="{% url 'contest:user_entry_list' %}" class="btn btn-outline-secondary">← 내 출품작 목록으로</a>
+  </div>
+{% endblock %}
+

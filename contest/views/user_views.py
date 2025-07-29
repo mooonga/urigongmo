@@ -11,7 +11,7 @@ def upload_entry(request):
             entry = form.save(commit=False)
             entry.user = request.user
             entry.save()
-            return redirect('entry_list')
+            return redirect('user_entry_list')
     else:
         form = EntryForm()
 
@@ -19,9 +19,5 @@ def upload_entry(request):
 
 @login_required
 def entry_list(request):
-    if request.user.role == 'business':
-        entries = Entry.objects.filter(contest__created_by=request.user)
-    else:
-        entries = Entry.objects.filter(user=request.user)
-
+    entries = Entry.objects.filter(user=request.user)
     return render(request, 'contest/entry_list.html', {'entries': entries})

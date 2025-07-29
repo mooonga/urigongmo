@@ -25,7 +25,7 @@ urlpatterns = [
     path('contest/', include('contest.urls', namespace='contest')),
     path('', include('home.urls')),  # 기본 경로 → 공모전 목록 페이지
     path('freeboard/', include('freeboard.urls')),  # 자유게시판
-    path('poster/', include('poster.urls')),
+    path('poster/', include('poster.urls')),  #공모전
 ]
 
 # 개발 환경에서만 media 파일 서빙 (이미지, pdf, 등)

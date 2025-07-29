@@ -1,0 +1,20 @@
+<!-- freeboard/templates/freeboard/post_form.html -->
+<!-- 글 작성 & 수정 폼 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if form.instance.pk %}글 수정{% else %}글 작성{% endif %}</title>
+</head>
+<body>
+    <h2>{% if form.instance.pk %}글 수정{% else %}글 작성{% endif %}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">저장</button>
+    </form>
+
+    <a href="{% url 'freeboard:freeboard_list' %}">목록</a>
+</body>
+</html>
