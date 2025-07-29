@@ -62,7 +62,7 @@ def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.author == request.user:
         post.delete()
-    return redirect('freeboard:post_list')
+    return redirect('freeboard:freeboard_list')
 
 @login_required
 def comment_delete(request, comment_id):
