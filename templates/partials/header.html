@@ -1,0 +1,56 @@
+{% load static %}
+
+<header class="header">
+  <div class="header-content">
+    <div class="logo">
+      <a href="{% url 'home:index' %}" aria-label="logo">
+        <img src="{% static 'img/logo.png' %}" alt="logo" />
+      </a>
+    </div>
+
+    <nav class="main-nav">
+      <ul>
+        <li><a href="{% url 'home:index' %}" class="nav-link active">홈</a></li>
+        <li class="has-dropdown">
+          <a href="{% url 'poster:ongoing' %}" class="nav-link">공모전</a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'poster:ongoing' %}">진행 중인 공모전</a></li>
+            <li><a href="{% url 'poster:closed' %}">종료 공모전</a></li>
+          </ul>
+        </li>
+
+        <li class="has-dropdown">
+          <a href="#" class="nav-link">커뮤니티</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">팀원 모집</a></li>
+            <li><a href="#">정보 공유</a></li>
+            <li><a href="#">질문 답변</a></li>
+          </ul>
+        </li>
+
+        <li><a href="{% url 'home:about' %}" class="nav-link">소개</a></li>
+
+        <li class="has-dropdown">
+          <a href="{% url 'account:profile' %}" class="nav-link">마이페이지</a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'account:profile' %}">프로필</a></li>
+            <li><a href="{% url 'account:saved' %}">저장된 콘텐츠</a></li>
+            <li><a href="{% url 'account:myposts' %}">내 게시글</a></li>
+            <li><a href="{% url 'account:mycomments' %}">내 댓글</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="login-button-wrapper">
+      {% if user.is_authenticated %}
+        <form action="{% url 'account:logout' %}" method="post" style="display: inline;">
+          {% csrf_token %}
+          <button type="submit" class="login-button">로그아웃</button>
+        </form>
+      {% else %}
+        <a href="{% url 'account:login' %}" class="login-button">로그인</a>
+      {% endif %}
+    </div>
+  </div>
+</header>

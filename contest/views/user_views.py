@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from contest.models import Entry
 from contest.forms import EntryForm
 
+#출품작 업로드
 @login_required
 def upload_entry(request):
     if request.method == 'POST':
@@ -17,6 +18,8 @@ def upload_entry(request):
 
     return render(request, 'contest/upload_entry.html', {'form': form})
 
+
+#출품작 목록 확인
 @login_required
 def entry_list(request):
     entries = Entry.objects.filter(user=request.user)

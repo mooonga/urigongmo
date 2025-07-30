@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'account',
     'contest.apps.ContestConfig',
     'freeboard',
     'poster',
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,23 +106,25 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'ko-kr'
+TIME_ZONE = 'Asia/Seoul'
 USE_I18N = True
-
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# 개발 중에 사용하는 정적 파일 위치
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # 프로젝트 루트에 static 폴더가 있다면
+    os.path.join(BASE_DIR, 'static'),  # 또는 BASE_DIR / "static"
 ]
+
+# collectstatic으로 모아질 위치 (서버 배포 시 사용됨)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # 💡 다른 폴더로!
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -129,7 +132,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-AUTH_USER_MODEL = 'contest.User'
+AUTH_USER_MODEL = 'account.User'
 
 # media
 MEDIA_URL = '/media/'
@@ -137,23 +140,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # login
-LOGIN_URL = '/contest/login/'  # 로그인 페이지 경로 지정 
-LOGIN_REDIRECT_URL = '/contest/list/'  # 로그인 성공 후 이동
-LOGOUT_REDIRECT_URL = '/contest/login/'  # 로그아웃 후 이동
+LOGIN_URL = '/account/login/'  # 로그인 페이지 URL
+LOGIN_REDIRECT_URL = '/'       # 로그인 성공 시 리다이렉트
+LOGOUT_REDIRECT_URL = '/account/login/'  # 로그아웃 후 이동
 
-# templates
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # 앱 내부 templates만 사용할 경우 []로 비워둬도 됨
-        'APP_DIRS': True,  # 중요!! 앱 내 templates/ 사용 허용
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',  # 로그인 관련 redirect에 필수
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]

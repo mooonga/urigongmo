@@ -21,3 +21,33 @@ def main_page(request):
         'freeboard_posts': freeboard_posts,
     }
     return render(request, 'home/main.html', context)
+
+from django.shortcuts import render
+
+def main_page(request):
+    return render(request, 'index.html')
+
+def about(request):
+    return render(request, 'about.html')
+
+def ongoing(request):
+    return render(request, 'ongoing.html')  # 필요시 context 추가
+
+def closed(request):
+    return render(request, 'closed.html')
+
+def detail(request):
+    return render(request, 'detail.html')  # 필요시 context 추가
+
+# 마이페이지
+def mypage_profile(request):
+    return render(request, 'mypage/profile.html')
+
+def mypage_saved(request):
+    return render(request, 'mypage/saved.html')
+
+def mypage_myposts(request):
+    return render(request, 'mypage/myposts.html')
+
+def mypage_mycomments(request):
+    return render(request, 'mypage/mycomments.html')

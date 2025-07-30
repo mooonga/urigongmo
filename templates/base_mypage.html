@@ -1,0 +1,21 @@
+{# templates/base_mypage.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}마이페이지 – 우리동네공모전{% endblock %}
+
+{% block content %}
+<main class="my-page-section">
+  <div class="my-page-container">
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+      {% include 'partials/mypage_nav.html' %}
+    </aside>
+
+    <!-- 탭별 콘텐츠 영역 -->
+    <section class="profile-content">
+      {% block tab_content %}{% endblock %}
+    </section>
+  </div>
+</main>
+{% endblock %}

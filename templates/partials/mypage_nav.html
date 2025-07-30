@@ -1,0 +1,29 @@
+{# templates/partials/mypage_nav.html #}
+{% load static %}
+
+<div class="sidebar-header">
+  마이페이지
+</div>
+<ul class="sidebar-nav">
+  <li class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+    <a href="{% url 'account:profile' %}">
+      <img src="{% static 'img/icons/profile.svg' %}" class="nav-icon"> 프로필
+    </a>
+  </li>
+  <li class="{% if request.resolver_match.url_name == 'saved' %}active{% endif %}">
+    <a href="{% url 'account:saved' %}">
+      <img src="{% static 'img/icons/scrap.svg' %}" class="nav-icon"> 저장된 콘텐츠
+    </a>
+  </li>
+  <li class="{% if request.resolver_match.url_name == 'myposts' %}active{% endif %}">
+    <a href="{% url 'account:myposts' %}">
+      <img src="{% static 'img/icons/post.svg' %}" class="nav-icon"> 내 게시글
+    </a>
+  </li>
+  <li class="{% if request.resolver_match.url_name == 'mycomments' %}active{% endif %}">
+    <a href="{% url 'account:mycomments' %}">
+      <img src="{% static 'img/icons/comment.svg' %}" class="nav-icon"> 내 댓글
+    </a>
+  </li>
+</ul>
+

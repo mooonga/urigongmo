@@ -1,0 +1,30 @@
+<!--templates/account/login.html-->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}로그인 – 우리동네공모전{% endblock %}
+
+{% block content %}
+<main class="login-section">
+  <div class="login-card">
+    <h2 class="auth-heading">로그인</h2>
+    <form method="post" class="auth-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">이메일</label>
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.password.id_for_label }}">비밀번호</label>
+        {{ form.password }}
+      </div>
+      <button type="submit" class="login-submit">로그인</button>
+    </form>
+    <div class="login-footer auth-footer-links">
+      <a href="#">비밀번호 재설정</a>
+      <span>·</span>
+      <a href="{% url 'account:signup' %}">회원가입</a>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,59 @@
+{# templates/mypage/profile.html #}
+{% extends 'base_mypage.html' %}
+{% load static %}
+
+{% block tab_content %}
+<div class="content-card">
+  <div class="profile-card-header">
+    <h2 class="card-title">프로필 정보</h2>
+    <a href="{% url 'account:profile_edit' %}" class="btn edit-btn">
+      <img src="{% static 'img/icons/edit.svg' %}" class="btn-icon" alt="수정"> 프로필 수정
+    </a>
+  </div>
+  <div class="profile-card-body">
+    <div class="avatar-wrapper">
+      <img src="{% static 'img/default-avatar.png' %}" class="avatar" alt="프로필 사진">
+    </div>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">이름</span>
+        <span class="value">{{ profile.nickname }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">이메일</span>
+        <span class="value">{{ profile.user.email }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">나이</span>
+        <span class="value">
+          {% if profile.age %}
+            {{ profile.age }}세
+          {% else %}
+            -
+          {% endif %}
+        </span>
+      </div>
+      <div class="info-item">
+        <span class="label">거주지</span>
+        <span class="value">{{ profile.region|default:"-" }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">소개</span>
+        <span class="value">{{ profile.bio|default:"-" }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">관심사</span>
+        <span class="value">
+          {% if profile.interests %}
+            {% for tag in profile.interests %}
+              <span class="tag">{{ tag }}</span>
+            {% endfor %}
+          {% else %}
+            -
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

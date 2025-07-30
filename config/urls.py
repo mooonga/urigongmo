@@ -14,6 +14,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+# config/urls.py
 from contest import views
 from django.contrib import admin
 from django.urls import path, include
@@ -24,11 +26,12 @@ from poster import views as poster_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('contest/', include('contest.urls', namespace='contest')),
-    path('', poster_views.home, name='home'),  # 메인페이지 경로
+    path('', include(('home.urls', 'home'), namespace='home')),  # 메인페이지 경로
     path('freeboard/', include('freeboard.urls')),  # 자유게시판
-    path('poster/', include('poster.urls')),  #공모전
+    path('poster/', include(('poster.urls', 'poster'), namespace='poster')),  #공모전
+    path('account/', include('account.urls')),
 ]
 
 # 개발 환경에서만 media 파일 서빙 (이미지, pdf, 등)
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

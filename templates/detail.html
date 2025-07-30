@@ -1,0 +1,111 @@
+{# templates/detail.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ contest.title }} – 우리동네공모전{% endblock %}
+
+{% block content %}
+<main class="detail-page">
+  <div class="detail-container">
+    {# ← 목록으로 돌아가기 #}
+    <p class="back-link">
+      <a href="{% url 'ongoing' %}"><img src="{% static 'img/left_arrow.svg' %}"
+            alt="목록으로 돌아가기" /> 목록으로 돌아가기</a>
+    </p>
+    <br>
+    {# ─── 제목 ─── #}
+    <h1 class="section-title detail-title">
+      {{ contest.title }}
+    </h1>
+
+    {# ─── 포스터 + 주요 정보 ─── #}
+    <div class="detail-main-info">
+      <figure class="poster-figure">
+        {% if contest.image_url %}
+          <img src="{{ contest.image_url }}"
+              alt="{{ contest.title }}"
+              class="contest-image" />
+        {% else %}
+          <img src="{% static 'img/posterPlaceholder.jpg' %}"
+            alt="콘테스트 포스터"
+            class="contest-image" />
+        {% endif %}
+        <figcaption class="poster-caption">CONTEST POSTER</figcaption>
+      </figure>
+
+      <dl class="detail-dl">
+        <dt>디데이</dt>
+        <dd class="highlight">{{ contest.d_day }}</dd>
+
+        <dt>주최</dt>
+        <dd>{{ contest.host }}</dd>
+
+        <dt>회사명</dt>
+        <dd>{{ contest.company }} · {{ contest.company_type }}</dd>
+
+        <dt>지역</dt>
+        <dd>{{ contest.region }}</dd>
+
+        <dt>참여 대상</dt>
+        <dd>{{ contest.target }}</dd>
+
+        <dt>시상 규모</dt>
+        <dd>{{ contest.prize }}</dd>
+
+        <dt>공모 분야</dt>
+        <dd>
+          {% for cat in contest.categories %}
+            <span class="contest-category">{{ cat }}</span>
+          {% endfor %}
+        </dd>
+
+        <dt>활동 혜택</dt>
+        <dd>{{ contest.activity_benefits }}</dd>
+
+        <dt>추가 혜택</dt>
+        <dd>{{ contest.additional_benefits }}</dd>
+
+        <dt>홈페이지</dt>
+        <dd>
+          {% if contest.website %}
+            <a href="{{ contest.website }}" target="_blank">{{ contest.website }}</a>
+          {% else %}
+            –
+          {% endif %}
+        </dd>
+
+        <dt>접수 기간</dt>
+        <dd>{{ contest.start_date }} — {{ contest.end_date }}</dd>
+
+        <dt>조회수</dt>
+        <dd>{{ contest.view_count }}회</dd>
+      </dl>
+    </div>
+
+    {# ─── 탭 메뉴 ─── #}
+    <nav class="detail-tabs">
+      <a href="#info"    class="tab-link active">상세 정보</a>
+      <a href="#recruit" class="tab-link">팀원 모집</a>
+      <a href="#review"  class="tab-link">합격 후기</a>
+      <a href="#qa"      class="tab-link">Q&amp;A</a>
+    </nav>
+
+    {# ─── 탭 콘텐츠 ─── #}
+    <section id="info"   class="tab-content active">
+      <div class="contest-description">
+        {{ contest.description }}
+      </div>
+    </section>
+    <section id="recruit" class="tab-content">
+      <!-- 팀원 모집 영역 -->
+    </section>
+    <section id="review" class="tab-content">
+      <!-- 합격 후기 영역 -->
+    </section>
+    <section id="qa"     class="tab-content">
+      <!-- Q&A 영역 -->
+    </section>
+
+  </div>
+</main>
+{% endblock %}

@@ -1,32 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
-
+from django.contrib.auth import get_user_model
 # Create your models here.
 
 # 사용자(User) 모델
-class User(AbstractUser):
-    ROLE_CHOICES = [('admin', 'Admin'), ('user', 'User'), ('business', 'Business')]
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
-    created_at = models.DateTimeField(auto_now_add=True)
-    last_login = models.DateTimeField(null=True, blank=True)
-
-#일반 사용자 정보 (닉네임, 나이 등)
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nickname = models.CharField(max_length=100)
-    bio = models.TextField(blank=True)
-    age = models.IntegerField(null=True, blank=True)
-    region = models.CharField(max_length=100, blank=True)
-
-#사업자 정보 (회사명, 연락처, 승인 여부 등)
-class BusinessProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    company_name = models.CharField(max_length=100)
-    business_type = models.CharField(max_length=100)
-    contact_email = models.EmailField()
-    phone_number = models.CharField(max_length=20)
-    approval_status = models.CharField(max_length=10, choices=[('대기중', '대기중'), ('승인', '승인'), ('거절', '거절')])
+User = get_user_model()
 
 #공모전 정보
 class Contest(models.Model):
@@ -94,3 +73,29 @@ class AdminLog(models.Model):
     target_type = models.CharField(max_length=50)
     target_id = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+# 사용자의 찜 목록 관리
+class ContestLike(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='likes')
+    contest = models.ForeignKey(Contest, on_delete=models.CASCADE, related_name='liked_by')
+    liked_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'contest')  # 중복 방지
+
+    def __str__(self):
+        return f"{self.user.username} likes {self.contest.title}"
+    
+
+
+# 저장한 공모전 모델
+class SavedContest(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    contest = models.ForeignKey(Contest, on_delete=models.CASCADE)
+    saved_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'contest')  # 같은 공모전 중복 저장 방지
+
+    def __str__(self):
+        return f"{self.user.username} saved {self.contest.title}"
