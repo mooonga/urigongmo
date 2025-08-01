@@ -1,0 +1,843 @@
+/* style.css - Simplified semantic CSS for ContestHub */
+
+/* Layout containers */
+
+
+/* Hero section */
+.hero {
+  background: linear-gradient(90deg, #2563eb 0%, #9333ea 100%);
+  padding: 132px 0;
+  color: #ffffff;
+}
+.hero-title {
+  font-family: "Pretendard-Bold", sans-serif;
+  font-size: 36px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.hero-description {
+  font-family: "Pretendard-Regular", sans-serif;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+.hero-details {
+  display: flex;
+  gap: 16px;
+}
+.hero-detail {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+/* Search and filters */
+.search-section,
+.category-section {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+.search-container {
+  max-width: 1280px;   /* ← 카드 리스트와 같은 최대 폭 */
+  margin: 0 auto;      /* ← 가운데 정렬 */
+  padding: 24px 32px;  /* ← 원하는 좌우 패딩 */
+}
+.category-container {
+  max-width: 1280px;   /* ← 카드 리스트와 같은 최대 폭 */
+  margin: 0 auto;      /* ← 가운데 정렬 */
+  padding: 24px 32px;  /* ← 원하는 좌우 패딩 */
+  padding: 24px 32px 0;
+}
+.search-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.search-input {
+  width: 100%;
+  padding: 10px 12px 10px 40px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.search-filters {
+  display: flex;
+  gap: 10px;
+}
+.filter-select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 15px;
+}
+.category-list {
+  display: flex;
+  list-style: none;
+  gap: 48px;
+  margin: 0;
+  padding: 0;
+}
+.category-button {
+  background: none;
+  border: none;
+  font-family: "Pretendard-Medium", sans-serif;
+  font-size: 16px;
+  color: #4b5563;
+  padding-bottom: 24px;
+  cursor: pointer;
+}
+.category-button.active {
+  color: #2563eb;
+  border-bottom: 2px solid #2563eb;
+}
+
+/* Contest lists */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* 제목 ↔ 링크 양끝으로 배치 */
+  margin: 32px 64px 24px 32px;
+}
+
+/* 불필요한 마진 리셋 */
+.section-header .see-more {
+  margin: 0;
+}
+.see-more {
+  display: inline-flex;       /* 텍스트+이미지 묶음 */
+  align-items: center;        /* 수직 중앙 정렬 */
+  gap: 4px;                   /* 텍스트–이미지 사이 간격 */
+  font-weight: 500;
+}
+.see-more-text {
+  position: relative;
+  top: 1px;   /* 숫자를 조절해서 원하는 만큼 내리세요 */
+}
+.see-more img {
+  width: 12px;
+  height: 12px;
+}
+.section-header .section-title {
+  font-weight: 700;   /* 볼드 */
+  font-size: 20px;    /* 기존 브라우저 기본보다 조금 키움 */
+}
+.main-content {
+  max-width: 1280px;       /* 네비·푸터와 동일한 최대 폭 */
+  margin: 32px auto 0;     /* 위쪽만 32px, 좌우 중앙정렬 */
+  padding: 0 32px;         /* 좌우 32px 패딩 */
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 32px;
+}
+.content-wrapper {
+  display: grid;
+  grid-template-areas:
+    "new"
+    "popular"
+    "deadline";
+  grid-template-columns: 1fr;  /* 한 칼럼으로 쌓기 */
+  gap: 32px;
+  margin: 0;
+}
+.new-contests         { grid-area: new; }
+.popular-contests     { grid-area: popular; }
+.sidebar {
+  margin-top: 32px;
+}
+.contest-list {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.contest-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.contest-card.horizontal {
+  display: flex;
+  width: 100%;
+}
+.contest-image {
+  width: 100%;
+  height: 192px;
+  object-fit: cover;
+}
+.contest-card.horizontal .contest-image {
+  width: 80px;
+  height: 80px;
+}
+.contest-details {
+  padding: 16px;
+}
+.contest-category {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.contest-category.design { color: #2563eb; }
+.contest-category.idea   { color: #16a34a; }
+.contest-category.essay  { color: #9333ea; }
+.contest-category.photo  { color: #ea580c; }
+.contest-title {
+  font-family: "Pretendard-SemiBold", sans-serif;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: #111827;
+}
+.contest-organizer {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 12px;
+}
+.contest-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.contest-deadline { color: #ef4444; font-weight: 500; }
+.contest-prize    { color: #6b7280; }
+.contest-views    { color: #6b7280; }
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+}
+.sidebar section {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.sidebar-title {
+  font-family: "Pretendard-SemiBold", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #111827;
+  margin-bottom: 16px;
+}
+.highlight-list,
+.announcement-list {
+  list-style: none;
+  padding: 0;
+}
+.highlight-item,
+.announcement-item {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.highlight-category.team { color: #2563eb; }
+.highlight-category.info  { color: #16a34a; }
+.highlight-category.qa    { color: #9333ea; }
+.announcement-category.important { color: #ef4444; }
+.announcement-category.new       { color: #3b82f6; }
+.announcement-category.event     { color: #22c55e; }
+.highlight-title,
+.announcement-title {
+  font-family: "Pretendard-Medium", sans-serif;
+  font-size: 14px;
+  color: #111827;
+  margin-bottom: 4px;
+}
+.highlight-info {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Deadline-approaching */
+.deadline-approaching {
+  margin-top: 4px;
+  margin-bottom: 60px;                    /* 섹션 아래 여백 */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* 한 줄에 카드 2개 */
+  gap: 32px 16px;                        /* 카드 간격: 컬럼 32px, 행 16px */
+}
+.deadline-approaching > .section-title {
+  font-weight: 700;   /* 볼드 */
+  font-size: 20px;    /* 신규/인기와 통일 */
+  grid-column: 1 / -1;}
+.deadline-card {
+  background: #ffeaea;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 18px 24px 16px;
+}
+.deadline-alert {
+  display: flex;
+  align-items: center;
+}
+.alert-icon { width: 16px; margin-right: 8px; margin-bottom: 12px;}
+.alert-text { color: #dc2626; font-weight: 500; margin-bottom: 10px;}
+.deadline-title {
+  font-family: "Pretendard-SemiBold", sans-serif;
+  font-size: 16px;      /* 카드 타이틀은 16px로 통일 */
+  color: #111827;
+  margin: 0 0 6px;
+}
+.deadline-details { font-size: 14px; color: #4b5563; margin-bottom: 16px; }
+.apply-button {
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+/* Footer */
+footer.footer {
+  background-color: #1f2937;
+  color: #ffffff;
+  padding: 48px 0;
+}
+.footer-sections {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 48px;
+  gap: 200px;
+}
+.footer-logo {
+  font-family: "Pretendard-Bold", sans-serif;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+.footer-title {
+  font-family: "Pretendard-SemiBold", sans-serif;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+.footer-links li {
+  margin-bottom: 8px;
+}
+.footer-links a {
+  color: #d1d5db;
+  font-size: 14px;
+}
+.social-links {
+  display: flex;
+  gap: 16px;
+}
+.footer-bottom {
+  border-top: 1px solid #374151;
+  text-align: center;
+  padding-top: 24px;
+}
+.copyright { font-size: 14px; color: #9ca3af; }
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* ─── 로그인 페이지 ─── */
+.login-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 65px - 160px); /* 헤더(65px)·푸터(약 160px) 제외 */
+  background-color: #f9fafb;
+  padding: 40px 16px;
+}
+.login-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  max-width: 400px;
+  width: 100%;
+  padding: 32px;
+}
+.login-card h2 {
+  font-family: 'Pretendard-SemiBold', sans-serif;
+  font-size: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #111827;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #374151;
+}
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+}
+.form-group input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+.login-submit {
+  width: 100%;
+  margin-top: 8px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+}
+.login-footer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+}
+.login-footer .divider {
+  margin: 0 8px;
+  color: #d1d5db;
+}
+.login-footer a {
+  color: #2563eb;
+}
+.email-group {
+  display: flex;
+  gap: 8px;
+}
+/* ─── 회원 분류 드롭다운 ─── */
+.select-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 130px;       /* 적당한 너비, 필요 시 조절 */
+  margin-bottom: 16px;    /* 아래 필드와 간격 */
+}
+
+.user-type-select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: none;           /* 테두리 제거 */
+  background: transparent;
+  appearance: none;       /* 브라우저 기본 화살표 제거 */
+  -webkit-appearance: none;
+  cursor: pointer;
+  color: #374151;
+}
+.user-type-select option {
+  color: #374151;
+}
+/* 포커스 시에도 outline 제거 */
+.user-type-select:focus {
+  outline: none;
+}
+
+/* 커스텀 드롭다운 아이콘 */
+.select-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  background: url("../img/dropdown.svg") no-repeat center;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* ─── input + button 래퍼 ─── */
+.input-with-button {
+  display: flex;            /* 가로로 배치 */
+  align-items: center;      /* 세로 중앙 정렬 */
+  gap: 8px;
+  width: 100%;              /* 부모 너비 꽉 채우기 */
+  box-sizing: border-box;
+}
+
+/* ─── input 스타일 ─── */
+.input-with-button input {
+  flex: 1;
+  width: auto;       /* .form-group input {width:100%} 규칙 무시 */
+  height: 48px;
+  padding: 0 12px;
+  font-size: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  margin: 0;         /* .form-group input {margin-bottom:16px} 무시 */
+  box-sizing: border-box;
+}
+
+/* ─── button 스타일 ─── */
+.input-with-button button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 14px;
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0;
+}
+.email-group input {
+  flex: 1;
+}
+
+/* ─── 정렬 컨트롤 ─── */
+.sort-controls {
+  max-width: 1100px;
+  margin: 8px auto 0;     /* 검색창과 간격 */
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sort-controls label {
+  font-size: 14px;
+  color: #374151;
+}
+.sort-select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+.ongoing-contests .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.ongoing-contests .contest-card {
+  width: 100% !important;
+}
+/* ─── 진행 중인 공모전 그리드 ─── */
+/* ─── 검색 + 정렬 섹션 ─── */
+.ongoing-sort {
+  max-width: 1280px;
+  margin: 16px auto;
+  padding: 0 32px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+.ongoing-sort label {
+  font-size: 14px;
+  color: #374151;
+}
+.ongoing-sort .sort-select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+}
+
+/* ─── 진행 중인 공모전 그리드 ─── */
+.ongoing-contests {
+  max-width: 1280px;
+  margin: 0 auto 64px;
+  padding: 0 32px;
+}
+.ongoing-contests .ongoing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
+  gap: 24px;
+}
+
+/* ─── Ongoing 페이지만 적용 ─── */
+.ongoing-contests .section-header .sort-controls {
+  /* 전역 규칙 무시 */
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  /* 이 한 줄로 오른쪽 정렬 */
+  margin-left: auto !important;
+}
+
+
+/* ─── 공모전 카드 ─── */
+.contest-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.contest-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+.contest-details {
+  padding: 16px;
+  flex: 1;
+}
+.contest-category {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+.contest-period {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+.contest-title {
+  font-family: "Pretendard-SemiBold", sans-serif;
+  font-size: 16px;
+  color: #111827;
+  margin: 0;
+}
+
+/* ─── 페이지네이션 ─── */
+.pagination {
+  max-width: 1280px;
+  margin: 0 auto 64px;
+  padding: 0 32px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.pagination a,
+.pagination span {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #374151;
+  font-size: 14px;
+}
+.pagination .current {
+  background-color: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+/* ─── Detail Page 전체 배경 & 여백 ─── */
+
+.detail-page {
+  background-color: #f9fafb;
+  padding: 40px 0;
+}
+
+/* ─── White 컨테이너 ─── */
+.detail-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 32px;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+/* ─── 제목 ─── */
+.section-title.detail-title {
+  margin-top: 0;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* ─── 메인 정보 Flex 박스 ─── */
+.detail-main-info {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;  /* 포스터/정보 박스와 제목 사이 여백 */
+}
+
+/* ─── 포스터 박스 ─── */
+.poster-figure {
+  flex: 0 0 400px;
+  border: 1px dashed #d1d5db;
+  padding: 16px;
+  text-align: center;
+  color: #6b7280;
+}
+.poster-figure img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.poster-caption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ─── 주요 정보 DL ─── */
+/* ─── 상세 정보 레이블/값 색상 분리 ─── */
+/* dt/dd 를 한 줄씩 수평으로 배치 */
+.detail-dl {
+  display: grid;
+  grid-template-columns: max-content auto; /* 왼쪽 열: 레이블, 오른쪽 열: 값 */
+  row-gap: 0px;     
+  column-gap: 36px;  /* 레이블·값 사이 간격 */
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+/* 레이블 */
+.detail-dl dt {
+  text-align: left;
+  color: #6b7280;
+  margin: 0;
+  margin-left: 12px;
+}
+
+/* 값: 기본 마진 제거 */
+.detail-dl dd {
+  margin: 0;
+  color: #111827;
+}
+
+/* 만약 dd 안에 링크나 강조 텍스트가 있다면 */
+.detail-dl dd a {
+  color: #2563eb;    /* 예: 링크는 파란색 */
+  text-decoration: underline;
+}
+
+/* ─── 공통 auth 페이지 레이아웃 ─── */
+.auth-page {
+  background: #f9fafb;
+  padding: 60px 0;
+}
+.auth-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.auth-heading {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.auth-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #4b5563;
+}
+.auth-form input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+.auth-footer-links {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+}
+.auth-footer-links a {
+  color: #2563eb;
+  text-decoration: none;
+}
+.auth-footer-links span {
+  margin: 0 8px;
+}
+
+/* ─── 공유 버튼 리스트 ─── */
+.share-list {
+  display: flex;
+}
+.share-text {
+  padding-bottom: 4px;
+}
+/* ─── 탭 메뉴 ─── */
+.detail-tabs {
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  gap: 32px;
+  font-size: 16px;
+  margin: 32px 0 24px;
+}
+.detail-tabs .tab-link {
+  padding-bottom: 12px;
+  color: #4b5563;
+  text-decoration: none;
+}
+.detail-tabs .tab-link.active {
+  border-bottom: 2px solid #2563eb;
+  color: #2563eb;
+}
+
+/* ─── 탭 콘텐츠 ─── */
+.tab-content {
+  display: none;
+  padding-bottom: 24px;
+}
+.tab-content.active {
+  display: block;
+}
+
+/* ─── Placeholder Box ─── */
+.placeholder-box {
+  border: 1px dashed #d1d5db;
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.introducing-text {
+  max-width: 1280px;     /* 최대 폭 제한 */
+  margin: 0 auto;        /* 좌우 자동 마진으로 중앙 정렬 */
+  padding: 0 32px;       /* 양쪽에 여유 공간 추가(선택) */
+  font-size: 18px;       /* 읽기 좋은 크기로 조정 */
+  line-height: 1.6;      /* 적당한 줄간격 */
+  color: #374151;        /* 본문 텍스트 색상 */
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1024px) {
+  .content-wrapper { flex-direction: column; }
+  .sidebar { width: 100%; }
+  .contest-card { width: calc(50% - 12px); }
+  .ongoing-contests .ongoing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .deadline-approaching {
+    grid-template-columns: 1fr;
+  }
+  .ongoing-contests .ongoing-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .hero-title { font-size: 28px; line-height: 32px; }
+  .hero-description { font-size: 16px; line-height: 24px; }
+  .search-wrapper { flex-direction: column; }
+  .filter-select { width: 100%; }
+  .footer-sections, .footer-section { width: 100%; }
+}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ board_name }} – 커뮤니티{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/community.css' %}">
+
+<div class="my-page-container">
+  <!-- 사이드바 -->
+  <aside class="sidebar">
+    <div class="sidebar-header">커뮤니티</div>
+    <ul class="sidebar-nav">
+      {% for key, name in VALID_BOARDS.items %}
+      <li class="{% if board == key %}active{% endif %}">
+        <a href="{% url 'freeboard:post_list' board=key %}">
+          <img src="{% static 'img/icons/'|add:key|add:'.svg' %}" class="nav-icon">
+          {{ name }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <!-- 게시글 리스트 -->
+  <section class="profile-content">
+    <div class="content-card">
+      <div class="card-header">
+        <h2 class="card-title">{{ board_name }}</h2>
+        <a href="{% url 'freeboard:post_create' board=board %}" class="button primary">
+          글쓰기
+        </a>
+      </div>
+      <ul class="post-list">
+        {% for post in posts %}
+        <li class="post-item">
+          <a href="{% url 'freeboard:post_detail' board=board pk=post.pk %}" class="post-link">
+            {{ post.title }}
+          </a>
+          <span class="post-meta">
+            작성자: {{ post.author }} | {{ post.created_at|date:"Y-m-d H:i" }}
+          </span>
+        </li>
+        {% empty %}
+        <li class="empty">게시글이 없습니다.</li>
+        {% endfor %}
+      </ul>
+
+      <!-- 페이지네이션 -->
+      <nav class="pagination">
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}" class="page-link">« 이전</a>
+        {% endif %}
+        {% for num in paginator.page_range %}
+          {% if page_obj.number == num %}
+            <span class="current">{{ num }}</span>
+          {% else %}
+            <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}" class="page-link">다음 »</a>
+        {% endif %}
+      </nav>
+    </div>
+  </section>
+</div>
+{% endblock %}

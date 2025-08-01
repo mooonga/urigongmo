@@ -1,0 +1,173 @@
+{# templates/home/index.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}홈 – ContestHub{% endblock %}
+
+{% block content %}
+  <!-- Hero 섹션 -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h2 class="hero-title">2024 디자인 어워드</h2>
+        <p class="hero-description">최대 1,000만원의 상금과 함께하는 창의적 도전</p>
+        <div class="hero-details">
+          <span class="hero-detail">마감: 2024.08.15</span>
+          <span class="hero-detail">상금: 1,000만원</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 검색 + 필터 -->
+  <section class="search-section">
+    <div class="search-container">
+      <form method="get" class="search-wrapper">
+        <div class="search-input-wrapper">
+          <img src="{% static 'img/search.svg' %}" alt="검색" class="search-icon" />
+          <input
+            type="text"
+            name="q"
+            class="search-input"
+            placeholder="공모전 검색"
+            value="{{ request.GET.q }}"
+          />
+        </div>
+        <div class="search-filters">
+          <select name="category" class="filter-select">
+            <option value="">모든 분야</option>
+            {% for c in categories %}
+            <option value="{{ c }}" {% if selected_category == c %}selected{% endif %}>{{ c }}</option>
+            {% endfor %}
+          </select>
+          <select name="region" class="filter-select">
+            <option value="">전국</option>
+            {% for r in regions %}
+            <option value="{{ r }}" {% if selected_region == r %}selected{% endif %}>{{ r }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- 카테고리 버튼 -->
+  <section class="category-section">
+    <div class="category-container">
+      <ul class="category-list">
+        <li>
+          <button
+            type="button"
+            class="category-button {% if not selected_category %}active{% endif %}"
+          >전체</button>
+        </li>
+        {% for c in categories %}
+        <li>
+          <button
+            type="button"
+            class="category-button {% if selected_category == c %}active{% endif %}"
+          >{{ c }}</button>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 메인 콘텐츠 그리드 -->
+  <div class="main-content">
+    <div class="content-wrapper">
+
+      <!-- 신규 공모전 -->
+      <section class="new-contests">
+        <header class="section-header">
+          <h2 class="section-title">신규 공모전</h2>
+          <a href="{% url 'poster:poster_list' %}" class="see-more">
+            <span class="see-more-text">더보기</span>
+            <img src="{% static 'img/right_arrow.svg' %}" alt="더보기" />
+          </a>
+        </header>
+        <div class="contest-list">
+          {% for p in new_contests %}
+          <article class="contest-card">
+            {% if p.image %}
+            <img src="{{ p.image.url }}" alt="{{ p.title }}" class="contest-image" />
+            {% endif %}
+            <div class="contest-details">
+              <span class="contest-category {{ p.category|lower }}">{{ p.category }}</span>
+              <h3 class="contest-title">{{ p.title }}</h3>
+              <p class="contest-organizer">{{ p.organization }}</p>
+              <div class="contest-info">
+                <span class="contest-deadline">D-{{ p.days_until_deadline }}</span>
+                <span class="contest-prize">상금 {{ p.prize }}</span>
+              </div>
+            </div>
+          </article>
+          {% empty %}
+          <p>신규 공모전이 없습니다.</p>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- 인기 공모전 -->
+      <section class="popular-contests">
+        <header class="section-header">
+          <h2 class="section-title">인기 공모전</h2>
+          <a href="{% url 'poster:poster_list' %}?sort=popular" class="see-more">
+            <span class="see-more-text">더보기</span>
+            <img src="{% static 'img/right_arrow.svg' %}" alt="더보기" />
+          </a>
+        </header>
+        <div class="contest-list">
+          {% for p in popular_contests %}
+          <article class="contest-card horizontal">
+            <img
+              src="{{ p.image.url|default:'img/posterPlaceholder.jpg' }}"
+              alt="{{ p.title }}"
+              class="contest-image"
+            />
+            <div class="contest-details">
+              <span class="contest-category {{ p.category|lower }}">{{ p.category }}</span>
+              <h3 class="contest-title">{{ p.title }}</h3>
+              <p class="contest-organizer">{{ p.organization }}</p>
+              <div class="contest-info">
+                <span class="contest-views">조회 {{ p.views }}</span>
+                <span class="contest-deadline">D-{{ p.days_until_deadline }}</span>
+                <span class="contest-prize">상금 {{ p.prize }}</span>
+              </div>
+            </div>
+          </article>
+          {% empty %}
+          <p>인기 공모전이 없습니다.</p>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- 마감 임박 -->
+      <section class="deadline-approaching">
+        <h2 class="section-title">마감 임박</h2>
+        {% if deadline_contest %}
+        <div class="deadline-card">
+          <div class="deadline-alert">
+            <img
+              src="{% static 'icons/deadline_timer.svg' %}"
+              alt="경고"
+              class="alert-icon"
+            />
+            <span class="alert-text">마감 {{ deadline_contest.days_until_deadline }}일 전!</span>
+          </div>
+          <h3 class="deadline-title">{{ deadline_contest.title }}</h3>
+          <p class="deadline-details">
+            {{ deadline_contest.organization }} | 상금 {{ deadline_contest.prize }}
+          </p>
+          <a
+            href="{% url 'poster:detail' deadline_contest.pk %}"
+            class="apply-button"
+          >지금 참가하기</a>
+        </div>
+        {% else %}
+        <p>마감 임박 공모전이 없습니다.</p>
+        {% endif %}
+      </section>
+    </div>
+  </div>
+{% endblock %}
