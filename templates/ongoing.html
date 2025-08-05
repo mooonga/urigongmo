@@ -23,7 +23,7 @@
     <div class="ongoing-grid">
       {% for contest in contests %}
       <article class="contest-card">
-        <img src="{{ contest.image_url }}" alt="{{ contest.title }}" class="contest-image" />
+        <img src="{{ contest.image.url }}" alt="{{ contest.title }}" class="contest-image" />
         <div class="contest-details">
           <span class="contest-category {{ contest.category_class }}">
             {{ contest.category }}

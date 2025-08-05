@@ -12,7 +12,11 @@
   </div>
   <div class="profile-card-body">
     <div class="avatar-wrapper">
-      <img src="{{ profile.avatar_url }}" class="avatar" alt="프로필 사진">
+      {% if profile.avatar_url %}
+        <img src="{{ profile.avatar_url }}" class="avatar" alt="프로필 사진">
+      {% else %}
+        <img src="{% static 'img/default-avatar.png' %}" class="avatar" alt="기본 프로필">
+        {% endif %}
     </div>
     <div class="info-grid">
       <div class="info-item">

@@ -3,6 +3,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Poster
 from django.db.models import Q
+from datetime import date
 
 def home(request):
     query = request.GET.get('q', '')
@@ -62,3 +63,13 @@ def poster_detail(request, pk):
     poster.views += 1  # 조회수 1 증가
     poster.save()      # DB에 저장
     return render(request, 'poster/poster_detail.html', {'poster': poster})
+
+def ongoing_contests(request):
+    today = date.today()
+    contests = Poster.objects.filter(end_date__gte=today).order_by('end_date')
+    return render(request, 'ongoing.html', {'contests': contests})
+
+def closed_contests(request):
+    today = date.today()
+    contests = Poster.objects.filter(end_date__lt=today).order_by('-end_date')
+    return render(request, 'closed.html', {'contests': contests})

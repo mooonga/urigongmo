@@ -11,6 +11,7 @@
     <nav class="main-nav">
       <ul>
         <li><a href="{% url 'home:index' %}" class="nav-link active">홈</a></li>
+
         <li class="has-dropdown">
           <a href="{% url 'poster:ongoing' %}" class="nav-link">공모전</a>
           <ul class="dropdown-menu">
@@ -20,11 +21,11 @@
         </li>
 
         <li class="has-dropdown">
-          <a href="#" class="nav-link">커뮤니티</a>
+          <a href="{% url 'community:community_home' %}" class="nav-link">커뮤니티</a>
           <ul class="dropdown-menu">
-            <li><a href="#">팀원 모집</a></li>
-            <li><a href="#">정보 공유</a></li>
-            <li><a href="#">질문 답변</a></li>
+            <li><a href="{% url 'community:post_list' board_type='team' %}">팀원 모집</a></li>
+            <li><a href="{% url 'community:post_list' board_type='info' %}">정보 공유</a></li>
+            <li><a href="{% url 'community:post_list' board_type='qna' %}">질문 답변</a></li>
           </ul>
         </li>
 

@@ -17,7 +17,7 @@ urlpatterns = [
     path('ajax/check_email/', views.check_email, name='check_email'),
     path('mypage/profile/', user_views.profile_view, name='profile'),
     path('mypage/saved/', user_views.saved_view, name='saved'),
-    path('mypage/myposts/', user_views.myposts_view, name='myposts'),
-    path('mypage/mycomments/', user_views.mycomments_view, name='mycomments'),
+    path('mypage/myposts/', user_views.my_posts, name='myposts'),
+    path('mypage/mycomments/', user_views.my_comments, name='mycomments'),
     path('mypage/profile/edit/', views.profile_edit, name='profile_edit'),  #수정
 ]

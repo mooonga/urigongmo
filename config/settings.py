@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'contest.apps.ContestConfig',
-    'freeboard',
+    'community',
     'poster',
     'home',
     'urigongmo.apps.UrigongmoConfig',

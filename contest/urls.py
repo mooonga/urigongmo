@@ -1,5 +1,3 @@
-# contest/urls.py
-
 from django.urls import path
 from .views.home_views import contest_home
 from .views.business_views import (
@@ -10,12 +8,18 @@ from .views.business_views import (
 from .views.user_views import (
     upload_entry,
     entry_list as user_entry_list,
+    ongoing_contests,
+    closed_contests,
 )
 
 app_name = 'contest'
 
 urlpatterns = [
     path('', contest_home, name='contest_home'),
+
+    # 공모전 진행 상태별 보기
+    path('ongoing/', ongoing_contests, name='ongoing_contests'),
+    path('closed/', closed_contests, name='closed_contests'),
 
     # 사업자용
     path('business/contest/register/', register_contest, name='register_contest'),

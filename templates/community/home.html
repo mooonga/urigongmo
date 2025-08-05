@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/community.css' %}">
+
+<div class="community-hero">
+  <h1>커뮤니티</h1>
+  <p>다른 사용자들과 팀을 구하고, 정보를 나누고, 질문을 남겨보세요.</p>
+</div>
+
+<div class="community-cards">
+  <div class="community-card">
+    <a href="{% url 'community:post_list' board_type='team' %}">
+      <h3>팀원 모집</h3>
+      <p>함께할 팀원을 구해보세요.</p>
+    </a>
+  </div>
+  <div class="community-card">
+    <a href="{% url 'community:post_list' board_type='info' %}">
+      <h3>정보 공유</h3>
+      <p>공모전, 팁, 유용한 자료를 나눠보세요.</p>
+    </a>
+  </div>
+  <div class="community-card">
+    <a href="{% url 'community:post_list' board_type='qna' %}">
+      <h3>질문 답변</h3>
+      <p>모르는 점이 있다면 질문해보세요!</p>
+    </a>
+  </div>
+</div>
+{% endblock %}

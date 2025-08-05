@@ -1,0 +1,33 @@
+<!-- templates/community/qna/post_form.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/community_board.css' %}">
+
+<div class="board-wrapper">
+  <h2>{% if edit_mode %}게시글 수정{% else %}게시글 작성{% endif %}</h2>
+
+  <form method="post" class="post-form">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="{{ form.title.id_for_label }}">제목</label>
+      {{ form.title }}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.content.id_for_label }}">내용</label>
+      {{ form.content }}
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit" class="btn btn-primary">
+        {% if edit_mode %}수정 완료{% else %}작성 완료{% endif %}
+      </button>
+      <a href="{% url 'community:post_list' board_type=board_type %}" class="btn btn-secondary">목록으로</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
+

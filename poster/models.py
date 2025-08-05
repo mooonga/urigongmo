@@ -20,6 +20,11 @@ class Poster(models.Model):
     category_id = models.IntegerField(null=True, blank=True)  #카테고리 id
     created_at = models.DateTimeField(auto_now_add=True)  # 생성일시
     views = models.IntegerField(default=0)   #조회수 저장
+    status = models.CharField(
+    max_length=20,
+    choices=[('진행중', '진행중'), ('마감', '마감')],
+    default='진행중'
+    )
 
     def __str__(self):
         return self.title

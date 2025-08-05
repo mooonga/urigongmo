@@ -15,7 +15,8 @@ class Contest(models.Model):
     description = models.TextField(blank=True, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
-    
+    image = models.ImageField(upload_to='contest_images/', null=True, blank=True)
+
     CONTEST_STATUS_CHOICES = [
         ('대기중', '대기중'),
         ('모집중', '모집중'),
