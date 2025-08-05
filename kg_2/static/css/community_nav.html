@@ -1,0 +1,21 @@
+{# partials/community_nav.html #}
+{% load static %}
+
+<div class="sidebar-header">커뮤니티</div>
+<ul class="sidebar-nav">
+  <li class="{% if board == 'team' %}active{% endif %}">
+    <a href="{% url 'community:post_list' board='team' %}">
+      팀원 모집
+    </a>
+  </li>
+  <li class="{% if board == 'info' %}active{% endif %}">
+    <a href="{% url 'community:post_list' board='info' %}">
+      정보 공유
+    </a>
+  </li>
+  <li class="{% if board == 'qna' %}active{% endif %}">
+    <a href="{% url 'community:post_list' board='qna' %}">
+      질문 답변
+    </a>
+  </li>
+</ul>

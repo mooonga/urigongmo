@@ -1,0 +1,25 @@
+{# templates/mypage/comments.html #}
+{% extends 'base_mypage.html' %}
+{% load static %}
+
+{% block tab_content %}
+<div class="content-card">
+  <h2 class="card-title">내 댓글</h2>
+  <ul class="comment-list">
+    {% for cm in my_comments %}
+      <li>
+        <div class="comment-main">
+          <strong class="comment-contest">{{ cm.contest }}</strong>
+          <span class="comment-text">{{ cm.comment }}</span>
+        </div>
+        <div class="comment-meta">
+          <span class="comment-date">{{ cm.created_at }}</span>
+        </div>
+      </li>
+    {% empty %}
+      <li class="empty">작성된 댓글이 없습니다.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
+

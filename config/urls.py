@@ -31,7 +31,3 @@ urlpatterns = [
     path('poster/', include(('poster.urls', 'poster'), namespace='poster')),  #공모전
     path('account/', include('account.urls')),
 ]
-
-# 개발 환경에서만 media 파일 서빙 (이미지, pdf, 등)
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

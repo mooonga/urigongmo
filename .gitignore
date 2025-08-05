@@ -17,3 +17,6 @@ media/poster_images/
 
 #kg_2
 kg_2/
+
+#db 충돌 방지
+db.sqlite3

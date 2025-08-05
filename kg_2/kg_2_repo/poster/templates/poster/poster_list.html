@@ -1,0 +1,28 @@
+<form method="get" class="search-bar">
+    <input type="text" name="q" placeholder="공모전 검색" value="{{ query }}">
+    <select name="category">
+        <option value="">전체 분야</option>
+        {% for c in categories %}
+            <option value="{{ c }}" {% if selected_category == c %}selected{% endif %}>{{ c }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">검색</button>
+</form>
+
+<hr>
+
+<div class="poster-list">
+    {% for p in posters %}
+        <div class="poster-card">
+            <a href="{% url 'poster:poster_detail' p.pk %}">
+                <img src="{{ p.image.url }}" alt="포스터 이미지" width="200">
+                <h3>{{ p.title }}</h3>
+            </a>
+            <p>{{ p.organization }} | {{ p.category }}</p>
+            <p>{{ p.start_date }} ~ {{ p.end_date }}</p>
+            <p>조회수: {{ p.views }}</p>
+        </div>
+    {% empty %}
+        <p>검색 결과가 없습니다.</p>
+    {% endfor %}
+</div>

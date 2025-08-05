@@ -1,0 +1,19 @@
+{# templates/mypage/posts.html #}
+{% extends 'base_mypage.html' %}
+{% load static %}
+
+{% block tab_content %}
+<div class="content-card">
+  <h2 class="card-title">내 게시글</h2>
+<ul class="post-list">
+  {% for p in my_posts %}
+    <li>
+      <a href="#">{{ p.title }}</a>
+      <span class="post-date">{{ p.date }}</span>
+    </li>
+  {% empty %}
+    <li class="empty">작성된 게시글이 없습니다.</li>
+  {% endfor %}
+</ul>
+</div>
+{% endblock %}

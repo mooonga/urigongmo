@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+
 import os
 from pathlib import Path
 
@@ -20,11 +21,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = 'django-insecure-3&@fqyg7ok9vp9gw+swce1+$gyvr0kv7#xa6m#h+@7!n_brkde'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ['*']
+
+#urigongmo-only 시크릿키
+#SECRET_KEY = 'django-insecure-=^t-b-o5$xlkc29*_jayelq=1c5(32j^r6!h817kfb*w$#1p-j'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -41,6 +52,7 @@ INSTALLED_APPS = [
     'freeboard',
     'poster',
     'home',
+    'urigongmo.apps.UrigongmoConfig',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +70,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [ BASE_DIR / 'templates' ],  # 프로젝트 최상위 templates 폴더 추가
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,27 +81,28 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-#DATABASES = {
-    #'default': {
-        #'ENGINE': 'django.db.backends.mysql',
-        #'NAME': 'WEB',
-        #'USER': 'webuser',
-        #'PASSWORD': 'itbank',
-        #'HOST': '10.10.2.3',
-        #'PORT': '3306',
-        #'OPTIONS': {
-            #'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        #},
-    #}
-#}
+# MySQL 설정 예시 (필요시 활성화)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'WEB',
+#         'USER': 'webuser',
+#         'PASSWORD': 'itbank',
+#         'HOST': '10.10.2.3',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
 
+# 현재는 SQLite 사용
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -122,7 +135,6 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'ko-kr'
 TIME_ZONE = 'Asia/Seoul'
 USE_I18N = True
-USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -132,11 +144,15 @@ STATIC_URL = '/static/'
 
 # 개발 중에 사용하는 정적 파일 위치
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # 또는 BASE_DIR / "static"
+    BASE_DIR / 'static',  # 또는 os.path.join(BASE_DIR, 'static')
 ]
 
 # collectstatic으로 모아질 위치 (서버 배포 시 사용됨)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # 💡 다른 폴더로!
+
+# 로그인 관련 설정
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'  # 로그인 후 돌아갈 기본 URL
 
 
 # Default primary key field type
@@ -144,16 +160,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # 💡 다른 폴더로!
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 AUTH_USER_MODEL = 'account.User'
 
 # media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
 # login
 LOGIN_URL = '/account/login/'  # 로그인 페이지 URL
 LOGIN_REDIRECT_URL = '/'       # 로그인 성공 시 리다이렉트
 LOGOUT_REDIRECT_URL = '/account/login/'  # 로그아웃 후 이동
-
