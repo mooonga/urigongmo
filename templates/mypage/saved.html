@@ -3,29 +3,41 @@
 
 {% block tab_content %}
 <div class="content-card">
-    <h2 class="card-title">저장된 콘텐츠</h2>
+  <h2 class="card-title">저장된 콘텐츠</h2>
   <ul class="saved-content-list">
+
     {# 공모전 항목 #}
     {% for c in saved_contests %}
       <li class="item contest">
         <span class="type-label">공모전</span>
-        <a href="#" class="title">{{ c.title }}</a>
-        <span class="info">{{ c.d_day }}</span>
+        <a href="{% url 'contest:detail' c.contest.id %}" class="title">{{ c.contest.title }}</a>
+        <span class="info">{{ c.contest.d_day }}</span>
+
+        <form method="post" action="{% url 'contest:unsave_contest' c.contest.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-sm btn-outline-danger">스크랩 취소</button>
+        </form>
       </li>
     {% endfor %}
 
-    {# 커뮤니티 게시물 항목 #}
+    {# 게시글 항목 #}
     {% for p in saved_posts %}
       <li class="item post">
         <span class="type-label">게시글</span>
-        <a href="#" class="title">{{ p.title }}</a>
-        <span class="info">{{ p.date }}</span>
+        <a href="{% url 'community:post_detail' board_type=p.post.board_type pk=p.post.id %}" class="title">{{ p.post.title }}</a>
+        <span class="info">{{ p.post.created_at|date:"Y.m.d" }}</span>
+
+        <form method="post" action="{% url 'community:unsave_post' board_type=p.post.board_type post_id=p.post.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-sm btn-outline-danger">스크랩 취소</button>
+        </form>
       </li>
     {% endfor %}
 
     {% if saved_contests|length == 0 and saved_posts|length == 0 %}
       <li class="empty">저장된 콘텐츠가 없습니다.</li>
     {% endif %}
+
   </ul>
 </div>
 {% endblock %}

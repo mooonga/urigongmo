@@ -19,4 +19,9 @@ urlpatterns = [
     # 댓글 수정, 삭제
     path('comment/<int:pk>/edit/', views.comment_edit, name='comment_edit'),
     path('comment/<int:pk>/delete/', views.comment_delete, name='comment_delete'),
+
+    #게시글 저장, 취소
+    path('<str:board_type>/<int:post_id>/save/', views.save_post, name='save_post'), 
+    path('<str:board_type>/<int:post_id>/unsave/', views.unsave_post, name='unsave_post'),  
+
 ]

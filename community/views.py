@@ -1,8 +1,9 @@
+# community/views.py
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Comment
+from .models import Post, Comment, SavedPost
 from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 
 def community_home(request):
     return render(request, 'community/home.html')
@@ -47,10 +48,10 @@ def post_detail(request, board_type, pk):
     post.views += 1
     post.save()
     
-    #댓글 조회
+    # 댓글 조회
     comments = post.comments.all().order_by('-created_at')
 
-    #댓글 작성 처리
+    # 댓글 폼 초기화
     if request.method == 'POST':
         if request.user.is_authenticated:
             comment_form = CommentForm(request.POST)
@@ -65,12 +66,18 @@ def post_detail(request, board_type, pk):
     else:
         comment_form = CommentForm()
 
+    # 저장 여부 확인 (context에 추가해줘야 함!)
+    is_saved = False
+    if request.user.is_authenticated:
+        is_saved = SavedPost.objects.filter(user=request.user, post=post).exists()
+
     template_name = f'community/{board_type}/post_detail.html'
     return render(request, template_name, {
         'post': post,
         'board_type': board_type,
         'comments': comments,
         'comment_form': comment_form,
+        'is_saved': is_saved,  # ✅ 이거 꼭 추가!
     })
 
 
@@ -138,3 +145,20 @@ def comment_delete(request, pk):
         comment.delete()
 
     return redirect('community:post_detail', board_type=board_type, pk=post_pk)
+
+
+##게시글 저장
+@login_required
+def save_post(request, board_type, post_id):
+    post = get_object_or_404(Post, board_type=board_type, id=post_id)
+    SavedPost.objects.get_or_create(user=request.user, post=post)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+##게시글 취소
+@login_required
+def unsave_post(request, board_type, post_id):
+    post = get_object_or_404(Post, board_type=board_type, id=post_id)
+    SavedPost.objects.filter(user=request.user, post=post).delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+

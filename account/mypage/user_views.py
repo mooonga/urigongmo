@@ -1,6 +1,7 @@
+#account/mypage/user_views.py
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from community.models import Post, Comment
+from community.models import Post, Comment, SavedPost
 from contest.models import SavedContest
 
 # 1. 프로필 보기
@@ -20,11 +21,11 @@ def profile_view(request):
 @login_required
 def saved_view(request):
     saved_contests = SavedContest.objects.filter(user=request.user)
-    #saved_posts = SavedPost.objects.filter(user=request.user)
+    saved_posts = SavedPost.objects.filter(user=request.user)
 
     return render(request, 'mypage/saved.html', {
         'saved_contests': saved_contests,
-        #'saved_posts': saved_posts,
+        'saved_posts': saved_posts,
     })
 
 # 3. 내가 쓴 게시글
