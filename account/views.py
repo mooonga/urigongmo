@@ -23,7 +23,7 @@ def signup_view(request):
             user.username = form.cleaned_data['email']  # 이메일을 username으로 사용
             user.save()
 
-            # 🔹 UserProfile 자동 생성
+            # UserProfile 자동 생성
             nickname = form.cleaned_data['nickname']
             UserProfile.objects.create(user=user, nickname=nickname)
 
@@ -59,12 +59,13 @@ def check_email(request):
 
 #프로필 수정용 함수
 def profile_view(request):
-    profile = get_object_or_404(UserProfile, user=request.user)
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
     return render(request, 'mypage/profile.html', {'profile': profile})
 
 
 def profile_edit(request):
-    profile = get_object_or_404(UserProfile, user=request.user)
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
+    
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():
@@ -72,4 +73,5 @@ def profile_edit(request):
             return redirect('account:profile')
     else:
         form = UserProfileForm(instance=profile)
+    
     return render(request, 'mypage/profile_edit.html', {'form': form})
