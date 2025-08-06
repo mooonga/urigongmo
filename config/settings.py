@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'community',
     'poster',
     'home',
-    'urigongmo.apps.UrigongmoConfig',
+    #'urigongmo.apps.UrigongmoConfig',
 ]
 
 MIDDLEWARE = [
@@ -152,7 +152,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # 💡 다른 폴더로!
 
 # 로그인 관련 설정
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'  # 로그인 후 돌아갈 기본 URL
+LOGIN_REDIRECT_URL = '/'  # 로그인 후 돌아갈 기본 URL(Home)
 
 
 # Default primary key field type

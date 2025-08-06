@@ -18,6 +18,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     views = models.PositiveIntegerField(default=0)
+    #이미지 필드
+    image = models.ImageField(upload_to='community_images/', null=True, blank=True)
 
     def __str__(self):
         return f"[{self.get_board_type_display()}] {self.title}"

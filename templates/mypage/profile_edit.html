@@ -1,4 +1,3 @@
-<!-- profile_edit.html -->
 {% extends 'base_mypage.html' %}
 {% load static %}
 
@@ -8,43 +7,75 @@
   <form method="post" class="form">
     {% csrf_token %}
 
-    <div class="form-group">
-      <label for="{{ form.nickname.id_for_label }}">닉네임</label>
-      {{ form.nickname }}
-    </div>
-
-    <div class="form-group">
-      <label for="{{ form.age.id_for_label }}">나이</label>
-      {{ form.age }}
-    </div>
-
-    <div class="form-group">
-      <label for="{{ form.region.id_for_label }}">거주지</label>
-      {{ form.region }}
-    </div>
-
-    <div class="form-group">
-      <label for="{{ form.bio.id_for_label }}">소개</label>
-      {{ form.bio }}
-    </div>
-
-    <div class="form-group">
-      <label>관심사</label>
-      <div class="tag-checkboxes">
-        {% for value, label in form.fields.interests.choices %}
-          {% with field_id="id_interests_"|add:value %}
-            <label class="tag-button">
-              <input type="checkbox"
-                     name="interests"
-                     id="{{ field_id }}"
-                     value="{{ value }}"
-                     {% if value in form.initial.interests %}checked{% endif %}>
-              <span>{{ label }}</span>
-            </label>
-          {% endwith %}
-        {% endfor %}
+    {% if form %}
+      <div class="form-group">
+        <label for="{{ form.nickname.id_for_label }}">닉네임</label>
+        {{ form.nickname }}
       </div>
-    </div>
+
+      <div class="form-group">
+        <label for="{{ form.age.id_for_label }}">나이</label>
+        {{ form.age }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.region.id_for_label }}">거주지</label>
+        {{ form.region }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.bio.id_for_label }}">소개</label>
+        {{ form.bio }}
+      </div>
+
+      <div class="form-group">
+        <label>관심사</label>
+        <div class="tag-checkboxes">
+          {% for value, label in form.fields.interests.choices %}
+            {% with field_id="id_interests_"|add:value %}
+              <label class="tag-button">
+                <input type="checkbox"
+                      name="interests"
+                      id="{{ field_id }}"
+                      value="{{ value }}"
+                      {% if value in form.initial.interests %}checked{% endif %}>
+                <span>{{ label }}</span>
+              </label>
+            {% endwith %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if business_form %}
+      <hr style="margin: 24px 0;">
+      <h3 style="margin-bottom: 12px;">사업자 정보</h3>
+
+      <div class="form-group">
+        <label for="{{ business_form.company_name.id_for_label }}">회사 이름</label>
+        {{ business_form.company_name }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ business_form.business_type.id_for_label }}">업종</label>
+        {{ business_form.business_type }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ business_form.phone_number.id_for_label }}">전화번호</label>
+        {{ business_form.phone_number }}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ business_form.contact_email.id_for_label }}">이메일</label>
+        {{ business_form.contact_email }}
+      </div>
+
+      <div class="form-group">
+        <label>승인 상태</label>
+        <span style="font-weight: bold;">{{ business_form.instance.approval_status }}</span>
+      </div>
+    {% endif %}
 
     <button type="submit" class="btn submit-btn">저장하기</button>
   </form>

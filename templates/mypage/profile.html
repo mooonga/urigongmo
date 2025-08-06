@@ -16,8 +16,38 @@
         <img src="{{ profile.avatar_url }}" class="avatar" alt="프로필 사진">
       {% else %}
         <img src="{% static 'img/default-avatar.png' %}" class="avatar" alt="기본 프로필">
-        {% endif %}
+      {% endif %}
     </div>
+
+    {% if business_profile %}
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">사용자 이름</span>
+        <span class="value">{{ profile.nickname }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">회사 이름</span>
+        <span class="value">{{ business_profile.company_name|default:"미입력" }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">회사 유형</span>
+        <span class="value">{{ business_profile.business_type|default:"미입력" }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">컨택 이메일</span>
+        <span class="value">{{ business_profile.contact_email|default:"-" }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">연락처</span>
+        <span class="value">{{ business_profile.phone_number|default:"-" }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">승인 상태</span>
+        <span class="value">{{ business_profile.approval_status|default:"대기중" }}</span>
+      </div>
+    </div>
+
+    {% else %}
     <div class="info-grid">
       <div class="info-item">
         <span class="label">이름</span>
@@ -58,6 +88,7 @@
         </span>
       </div>
     </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
