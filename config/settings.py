@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'contest.apps.ContestConfig',
     'community',
     'poster',
-    'home'
+    'home',
+    #'urigongmo.apps.UrigongmoConfig',
 ]
 
 MIDDLEWARE = [
