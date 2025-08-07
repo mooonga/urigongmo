@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from .forms import SignupForm, LoginForm, UserProfileForm, BusinessProfileForm
 from .models import UserProfile, BusinessProfile
 from django.contrib.auth.decorators import login_required
+from django.utils.http import url_has_allowed_host_and_scheme
 
 User = get_user_model()
 

@@ -22,10 +22,6 @@
     {% if business_profile %}
     <div class="info-grid">
       <div class="info-item">
-        <span class="label">사용자 이름</span>
-        <span class="value">{{ profile.nickname }}</span>
-      </div>
-      <div class="info-item">
         <span class="label">회사 이름</span>
         <span class="value">{{ business_profile.company_name|default:"미입력" }}</span>
       </div>
