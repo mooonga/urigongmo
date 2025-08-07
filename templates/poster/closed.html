@@ -12,28 +12,34 @@
     <h2 class="section-title">종료 공모전</h2>
     <div class="sort-controls">
       <label for="sort-select" class="sort-label">정렬</label>
-      <select id="sort-select" class="sort-select">
-        <option>마감일 늦은 순</option>
-        <option>마감일 빠른 순</option>
-        <option>등록일 빠른 순</option>
-      </select>
+      <select id="sort-select" class="sort-select" name="sort">
+          <option value="end_date_desc">마감일 늦은 순</option>
+          <option value="end_date_asc">마감일 빠른 순</option>
+          <option value="created_at_asc">등록일 빠른 순</option>
+        </select>
     </div>
   </header>
 
     <div class="ongoing-grid">
       {% for contest in contests %}
       <article class="contest-card">
-        <img src="{{ contest.image_url }}" alt="{{ contest.title }}" class="contest-image" />
-        <div class="contest-details">
-          <span class="contest-category {{ contest.category_class }}">
-            {{ contest.category }}
-          </span>
-          <p class="contest-period">
-            접수기간: {{ contest.start_date }} – {{ contest.end_date }}
-          </p>
-          <h3 class="contest-title">{{ contest.title }}</h3>
-        </div>
-      </article>
+          <a href="{% url 'poster:poster_detail' poster.pk %}">
+            {% if poster.image %}
+              <img src="{{ poster.image.url }}" alt="{{ poster.title }}" class="contest-image" />
+            {% else %}
+              <img src="{% static 'img/posterPlaceholder.jpg' %}" alt="이미지 없음" class="contest-image" />
+            {% endif %}
+            <div class="contest-details">
+              <span class="contest-category {{ poster.category|lower }}">{{ poster.category }}</span>
+              <p class="contest-period">
+                접수기간: {{ poster.start_date }} – {{ poster.end_date }}
+              </p>
+              <h3 class="contest-title">{{ poster.title }}</h3>
+            </div>
+          </a>
+        </article>
+      {% empty %}
+        <p class="no-results">종료된 공모전이 없습니다.</p>
       {% endfor %}
     </div>
 

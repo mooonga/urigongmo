@@ -18,12 +18,9 @@ def main_page(request):
         'hot_posters': hot_posters,
         'closing_soon': closing_soon,
     }
-    return render(request, 'home/main.html', context)
+    return render(request, 'index.html', context)
 
 from django.shortcuts import render
-
-def main_page(request):
-    return render(request, 'index.html')
 
 def about(request):
     return render(request, 'about.html')

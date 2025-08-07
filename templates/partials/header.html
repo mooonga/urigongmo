@@ -13,10 +13,10 @@
         <li><a href="{% url 'home:index' %}" class="nav-link active">홈</a></li>
 
         <li class="has-dropdown">
-          <a href="{% url 'poster:ongoing' %}" class="nav-link">공모전</a>
+          <a href="{% url 'poster:poster_ongoing' %}" class="nav-link">공모전</a>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'poster:ongoing' %}">진행 중인 공모전</a></li>
-            <li><a href="{% url 'poster:closed' %}">종료 공모전</a></li>
+            <li><a href="{% url 'poster:poster_ongoing' %}">진행 중인 공모전</a></li>
+            <li><a href="{% url 'poster:poster_closed' %}">종료 공모전</a></li>
           </ul>
         </li>
 

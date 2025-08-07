@@ -2,34 +2,8 @@
 
 from django.shortcuts import render, get_object_or_404
 from .models import Poster
+from django.utils import timezone
 from django.db.models import Q
-from datetime import date
-
-def home(request):
-    query = request.GET.get('q', '')
-    selected_category = request.GET.get('category', '')
-
-    posters = Poster.objects.all()
-
-    if query:
-        posters = posters.filter(
-            Q(title__icontains=query) |
-            Q(organization__icontains=query) |
-            Q(description__icontains=query)
-        )
-
-    if selected_category:
-        posters = posters.filter(category=selected_category)
-
-    # 중복 없는 카테고리 목록 추출
-    categories = Poster.objects.values_list('category', flat=True).distinct()
-
-    return render(request, 'home/main.html', {
-        'posters': posters.order_by('-id'),
-        'query': query,
-        'selected_category': selected_category,
-        'categories': categories
-    })
 
 def poster_list(request):
     query = request.GET.get('q', '')  #검색어
@@ -51,25 +25,67 @@ def poster_list(request):
     # 중복 없는 카테고리 목록
     categories = Poster.objects.values_list('category', flat=True).distinct()
 
-    return render(request, 'home/main.html', {
+    return render(request, 'poster/poster_list.html', {
     'posters': posters.order_by('-id'),
     'query': query,
     'selected_category': selected_category,
     'categories': categories
-})
+}
+)
+
+def ongoing_contests(request):
+    """진행 중인 공모전만 보여주는 뷰"""
+    today = timezone.now().date()
+    query = request.GET.get('q', '')
+    selected_category = request.GET.get('category', '')
+
+    posters = Poster.objects.filter(end_date__gte=today)
+    if query:
+        posters = posters.filter(
+            Q(title__icontains=query) |
+            Q(organization__icontains=query) |
+            Q(description__icontains=query)
+        )
+    if selected_category:
+        posters = posters.filter(category=selected_category)
+
+    categories = Poster.objects.values_list('category', flat=True).distinct()
+
+    return render(request, 'poster/ongoing.html', {
+        'posters': posters.order_by('-id'),
+        'query': query,
+        'selected_category': selected_category,
+        'categories': categories,
+    })
+
+
+def closed_contests(request):
+    """종료된 공모전만 보여주는 뷰"""
+    today = timezone.now().date()
+    query = request.GET.get('q', '')
+    selected_category = request.GET.get('category', '')
+
+    posters = Poster.objects.filter(end_date__lt=today)
+    if query:
+        posters = posters.filter(
+            Q(title__icontains=query) |
+            Q(organization__icontains=query) |
+            Q(description__icontains=query)
+        )
+    if selected_category:
+        posters = posters.filter(category=selected_category)
+
+    categories = Poster.objects.values_list('category', flat=True).distinct()
+
+    return render(request, 'poster/closed.html', {
+        'posters': posters.order_by('-id'),
+        'query': query,
+        'selected_category': selected_category,
+        'categories': categories,
+    })
 
 def poster_detail(request, pk):
     poster = get_object_or_404(Poster, pk=pk)
     poster.views += 1  # 조회수 1 증가
     poster.save()      # DB에 저장
-    return render(request, 'poster/poster_detail.html', {'poster': poster})
-
-def ongoing_contests(request):
-    today = date.today()
-    contests = Poster.objects.filter(end_date__gte=today).order_by('end_date')
-    return render(request, 'ongoing.html', {'contests': contests})
-
-def closed_contests(request):
-    today = date.today()
-    contests = Poster.objects.filter(end_date__lt=today).order_by('-end_date')
-    return render(request, 'closed.html', {'contests': contests})
+    return render(request, 'poster/detail.html', {'poster': poster})
