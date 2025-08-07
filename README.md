@@ -98,3 +98,19 @@ python manage.py runserver
 ### 마이페이지
 - 로그인/회원가입 기능
 ### 템플릿 합치기
+
+---
+
+shell 실행
+> python manage.py shell
+
+shell 스크립트 
+> shell.txt 참고
+> git에서 코드만 내려받으면 DB에는 데이터가 없으므로 서버 셋업/이전, 로컬 초기화 때 사용
+
+포스터 모두 삭제
+> from poster.models import Poster
+> Poster.objects.all().delete()
+
+빠져나올 때
+> exit()
