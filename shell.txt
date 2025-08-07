@@ -1,0 +1,60 @@
+import pandas as pd
+import os
+from django.conf import settings
+from django.core.files.images import ImageFile
+from poster.models import Poster
+
+# 1) 엑셀 파일 경로 (프로젝트_ROOT/data/poster.xlsx)
+excel_path = os.path.join(settings.BASE_DIR, 'data', 'poster.xlsx')
+
+try:
+    df = pd.read_excel(excel_path)
+    print(f"엑셀 파일 로드 성공: {excel_path}")
+except Exception as e:
+    print(f"엑셀 파일 로드 실패: {e}")
+    raise
+
+success_count = 0
+fail_count = 0
+
+for idx, row in df.iterrows():
+    try:
+        p = Poster(
+            title        = str(row['제목']),
+            d_day        = '',  # 필요하면 계산해서 넣으세요
+            organization = str(row['주최']),
+            company_type = str(row.get('기업형태', '')),
+            target       = str(row.get('참여대상', '')),
+            prize        = str(row.get('시상규모', '')),
+            start_date   = pd.to_datetime(row['시작일']).date(),
+            end_date     = pd.to_datetime(row['마감일']).date(),
+            website      = str(row.get('홈페이지', '')),
+            benefits     = str(row.get('활동혜택', '')),
+            category     = str(row.get('공모분야', '')),
+            extra        = str(row.get('추가혜택', '')),
+            description  = str(row.get('상세내용', '')),
+        )
+        p.save()
+        print(f"[{idx}] Poster 저장 성공: {p.title}")
+
+        # 이미지 업로드
+        img_filename = row.get('포스터 이미지')
+        if img_filename and isinstance(img_filename, str) and img_filename.strip():
+            img_path = os.path.join(settings.BASE_DIR, 'media', 'poster_images', img_filename)
+            if os.path.exists(img_path):
+                with open(img_path, 'rb') as f:
+                    p.image.save(img_filename, ImageFile(f))
+                p.save()
+                print(f"   └ 이미지 저장 성공: {img_filename}")
+            else:
+                print(f"   └ 이미지 파일 없음: {img_path}")
+        else:
+            print(f"   └ 이미지 파일명 비어있음(엑셀 값): {img_filename}")
+        success_count += 1
+    except Exception as e:
+        print(f"[{idx}] Poster 저장 실패: {e}")
+        fail_count += 1
+
+print(f"\n== 결과 ==")
+print(f"저장 성공: {success_count}건 / 실패: {fail_count}건")
+print(f"총 {Poster.objects.count()}개의 Poster 객체가 DB에 존재합니다.")

@@ -11,7 +11,7 @@
     <!-- 뒤로 가기 -->
     <p class="back-link">
       <a href="{% url 'poster:poster_ongoing' %}">
-        <img src="{% static 'icons/left_arrow.svg' %}" alt="뒤로" /> 목록으로 돌아가기
+        <img src="{% static 'img/icons/left_arrow.svg' %}" alt="뒤로" /> 목록으로 돌아가기
       </a>
     </p>
     
@@ -26,11 +26,10 @@
         {% else %}
           <img src="{% static 'img/posterPlaceholder.jpg' %}" class="contest-image" alt="포스터 없음" />
         {% endif %}
-        <figcaption class="poster-caption">CONTEST POSTER</figcaption>
       </figure>
       <dl class="detail-dl">
         <dt>디데이</dt>
-        <dd class="highlight">D-{{ poster.d_day }}</dd>
+        <dd class="highlight">{{ poster.d_day }}</dd>
 
         <dt>주최</dt>
         <dd>{{ poster.organization }}</dd>
