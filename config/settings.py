@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
-    'contest.apps.ContestConfig',
+    #'contest.apps.ContestConfig',
     'community',
     'poster',
     'home',

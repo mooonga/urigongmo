@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 # config/urls.py
-from contest import views
+#from contest import views
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -25,7 +25,7 @@ from poster import views as poster_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('contest/', include('contest.urls', namespace='contest')),
+    #path('contest/', include('contest.urls', namespace='contest')),
     path('', include(('home.urls', 'home'), namespace='home')),  # 메인페이지 경로
     path('community/', include('community.urls')),
     path('poster/', include(('poster.urls', 'poster'), namespace='poster')),  #공모전

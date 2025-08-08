@@ -3,18 +3,25 @@
 {% block title %}홈 – urigongmo{% endblock %}
 
 {% block content %} 
-          <section class="hero">
-            <div class="hero-content">
-              <div class="hero-text">
-                <h2 class="hero-title">2024 디자인 어워드</h2>
-                <p class="hero-description">최대 1,000만원의 상금과 함께하는 창의적 도전</p>
-                <div class="hero-details">
-                  <span class="hero-detail">마감: 2024.08.15</span>
-                  <span class="hero-detail">상금: 1,000만원</span>
-                </div>
-              </div>
-            </div>
-          </section>
+<section class="hero-slider" aria-label="Featured contests">
+  <button class="hero-arrow prev" aria-label="Previous slide">‹</button>
+
+  <ul class="hero-track">
+    <li class="hero-slide" style="--bg: url('{% static 'img/index_hero-001.jpg' %}');">
+      <img src="{% static 'img/index_hero-001.jpg' %}" alt="hero 1">
+    </li>
+    <li class="hero-slide" style="--bg: url('{% static 'img/index_hero-002.jpg' %}');">
+      <img src="{% static 'img/index_hero-002.jpg' %}" alt="hero 2">
+    </li>
+    <li class="hero-slide" style="--bg: url('{% static 'img/index_hero-003.jpg' %}');">
+      <img src="{% static 'img/index_hero-003.jpg' %}" alt="hero 3">
+    </li>
+  </ul>
+
+  <button class="hero-arrow next" aria-label="Next slide">›</button>
+  <div class="hero-dots" aria-hidden="true"></div>
+</section>
+
           {% include 'partials/search.html' %}
           <section class="category-section">
             <div class="category-container">
@@ -170,3 +177,7 @@
             </aside>
           </div>
         {% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/hero-slider.js' %}" defer></script>
+{% endblock %}
