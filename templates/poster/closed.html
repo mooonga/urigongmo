@@ -7,7 +7,7 @@
 
   <!-- 검색 + 정렬 섹션 -->
   {% include 'partials/search.html' %}
-<section class="ongoing-contests">
+<section class="poster-list">
   <header class="section-header">
     <h2 class="section-title">종료 공모전</h2>
     <div class="sort-controls">
@@ -20,7 +20,7 @@
     </div>
   </header>
 
-    <div class="ongoing-grid">
+    <div class="poster-grid">
       {% for contest in contests %}
       <article class="contest-card">
           <a href="{% url 'poster:poster_detail' poster.pk %}">
