@@ -5,6 +5,7 @@
 {% block title %}{{ poster.title }} – urigongmo{% endblock %}
 
 {% block content %}
+
 <main class="detail-page">
   <div class="detail-container">
 
@@ -44,10 +45,8 @@
         <dd>{{ poster.prize }}</dd>
 
         <dt>공모 분야</dt>
-        <dd>
-          {% for cat in poster.categories %}
-            <span class="contest-category {{ cat|lower }}">{{ cat }}</span>
-          {% endfor %}
+        <dd style="font-family: Arial, sans-serif !important; color: black !important;">
+          {{ poster.category }}
         </dd>
 
         <dt>활동 혜택</dt>

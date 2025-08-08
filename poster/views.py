@@ -109,6 +109,7 @@ def closed_contests(request):
 
 def poster_detail(request, pk):
     poster = get_object_or_404(Poster, pk=pk)
+    print("🛠 카테고리:", repr(poster.category))
     poster.views += 1
     poster.save(update_fields=["views"])
     return render(request, "poster/detail.html", {"poster": poster})
