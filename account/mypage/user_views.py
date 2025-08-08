@@ -2,7 +2,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from community.models import Post, Comment, SavedPost
-from contest.models import SavedContest
 
 # 1. 프로필 보기
 @login_required
@@ -20,11 +19,11 @@ def profile_view(request):
 # 2. 저장한 콘텐츠 보기
 @login_required
 def saved_view(request):
-    saved_contests = SavedContest.objects.filter(user=request.user)
+    #saved_contests = SavedContest.objects.filter(user=request.user)
     saved_posts = SavedPost.objects.filter(user=request.user)
 
     return render(request, 'mypage/saved.html', {
-        'saved_contests': saved_contests,
+        #'saved_contests': saved_contests,
         'saved_posts': saved_posts,
     })
 

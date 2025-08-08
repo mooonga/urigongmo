@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="{% static 'css/poster.css' %}">
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
   <link rel="stylesheet" href="{% static 'css/account.css' %}">
-
 </head>
 <body>
   {% include 'partials/header.html' %}
@@ -24,6 +23,7 @@
   </main>
   {% include 'partials/footer.html' %}
   {% block extra_scripts %}{% endblock %}
+  {% block scripts %}{% endblock %}
 
 </body>
 </html>
