@@ -21,7 +21,7 @@
   </header>
 
     <div class="poster-grid">
-      {% for contest in contests %}
+      {% for poster in posters %}
       <article class="contest-card">
           <a href="{% url 'poster:poster_detail' poster.pk %}">
             {% if poster.image %}
