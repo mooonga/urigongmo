@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Poster
+from django.utils import timezone
 
 PAGE_SIZE = 12
 
@@ -13,6 +14,14 @@ SORT_MAP = {
     "end_date_asc": "end_date",     # 마감일 빠른 순
     "end_date_desc": "-end_date",   # 마감일 늦은 순
 }
+
+def format_d_day(end_date):
+    today = timezone.localdate()  # 서버 TZ 고려
+    days = (end_date - today).days
+    if days < 0:
+        return "마감"
+    # 원하면 days == 0일 때 "D-DAY"로 바꿔도 됨
+    return f"D-{days}"
 
 def get_sort_param(request, default_key="created_desc"):
     """요청에서 sort 값을 읽고, 허용되지 않으면 기본값으로 교체"""
@@ -55,6 +64,9 @@ def ongoing_contests(request):
     # 페이징
     page_obj, posters, paginator = paginate_qs(request, qs, PAGE_SIZE)
 
+    for p in posters:
+        p.d_day = format_d_day(p.end_date)
+
     categories = (
         Poster.objects.values_list("category", flat=True).distinct().order_by("category")
     )
@@ -93,6 +105,9 @@ def closed_contests(request):
     # 페이징
     page_obj, posters, paginator = paginate_qs(request, qs, PAGE_SIZE)
 
+    for p in posters:
+        p.d_day = format_d_day(p.end_date)
+        
     categories = (
         Poster.objects.values_list("category", flat=True).distinct().order_by("category")
     )
@@ -107,9 +122,11 @@ def closed_contests(request):
         "sort": sort_key,
     })
 
+# poster/views.py - 상세보기
 def poster_detail(request, pk):
     poster = get_object_or_404(Poster, pk=pk)
-    print("🛠 카테고리:", repr(poster.category))
     poster.views += 1
     poster.save(update_fields=["views"])
+    # 핵심: 여기서 동적으로 계산된 D-day를 템플릿에 전달
+    poster.d_day = format_d_day(poster.end_date)
     return render(request, "poster/detail.html", {"poster": poster})
