@@ -15,6 +15,29 @@
   <link rel="stylesheet" href="{% static 'css/poster.css' %}">
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
   <link rel="stylesheet" href="{% static 'css/account.css' %}">
+
+  {% if request.GET.wf == '1' %}
+  <link id="wf-css" rel="stylesheet" href="{% static 'css/wireframe.css' %}">
+  {% endif %}
+
+  {% block head_extra %}{% endblock %}
+
+  <script>
+  (function () {
+    const qs = new URLSearchParams(location.search);
+    if (qs.get('wf') === '1') document.cookie = "wf=1;path=/;Max-Age=2592000";
+    if (qs.get('wf') === '0') document.cookie = "wf=;Max-Age=0;path=/";
+
+    // 쿠키가 있으면 wireframe.css 주입(중복 방지)
+    if (document.cookie.includes('wf=1') && !document.getElementById('wf-css')) {
+      const link = document.createElement('link');
+      link.id = 'wf-css';
+      link.rel = 'stylesheet';
+      link.href = '{% static "css/wireframe.css" %}';
+      document.head.appendChild(link);
+    }
+  })();
+  </script>
 </head>
 <body>
   {% include 'partials/header.html' %}

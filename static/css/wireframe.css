@@ -1,0 +1,31 @@
+/* ---- Wireframe mode (lo-fi) ---- */
+* { box-shadow: none !important; text-shadow: none !important; animation: none !important; }
+html, body { background: #f6f7f8 !important; color: #111 !important; }
+a, h1, h2, h3, h4, h5, h6 { color: #111 !important; }
+
+/* 이미지/미디어는 숨겨서 레이아웃만 보이게 */
+img, video, svg, canvas, iframe, picture { visibility: hidden !important; }
+
+/* 레이아웃 블록 박스 */
+header, nav, main, section, article, aside, footer, div,
+ul, li, form, fieldset, table, thead, tbody, tfoot, tr, th, td, figure {
+  outline: 1px solid rgba(0,0,0,.18) !important;
+  background: #e9e9e9 !important;
+  border-radius: 6px !important;
+}
+
+/* 카드/리스트 간격 조금 벌려 구조가 또렷하게 */
+.card, .item, .list, .grid > * { padding: .5rem !important; margin: .5rem !important; }
+
+/* 입력/버튼은 단색 박스 */
+button, input, select, textarea {
+  outline: 1px solid rgba(0,0,0,.35) !important;
+  background: #fff !important; color: #000 !important; border-radius: 6px !important;
+}
+
+/* 선택사항: 너무 진하면 얇게(원하면 아래 줄만 남기고 위 블록 배경 제거)
+header, nav, main, section, article, aside, footer, div,
+ul, li, form, fieldset, table, thead, tbody, tfoot, tr, th, td, figure {
+  background: transparent !important;
+}
+*/
