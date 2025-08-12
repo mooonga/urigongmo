@@ -199,6 +199,17 @@
   color: #ef4444;
   font-weight: 700;
 }
+/* dl 안 버튼 모양 */
+.scrap-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:24px; height:24px;         
+  border:1px solid #e5e7eb; border-radius:9999px;
+  background:#fff; cursor:pointer;
+  vertical-align:middle;   
+}
+.scrap-btn img{ width:14px; height:14px; display:block; } 
+.scrap-btn:hover{ background:#f9fafb; }
+.scrap-btn[aria-pressed="true"]{ border-color:#2563eb; background:#eff6ff; }
 
 /* 탭 */
 .detail-tabs {

@@ -69,6 +69,22 @@
 
         <dt>조회수</dt>
         <dd>{{ poster.views }}회</dd>
+        <!-- 스크랩 (마지막 줄) -->
+<dt><button
+    class="scrap-btn"
+    type="button"
+    aria-label="스크랩"
+    aria-pressed="{% if poster.is_scrapped %}true{% else %}false{% endif %}"
+    data-scrap-on="{% static 'img/icons/scrapped.svg' %}"
+    data-scrap-off="{% static 'img/icons/scrap.svg' %}">
+    <img
+      src="{% if poster.is_scrapped %}{% static 'img/icons/scrapped.svg' %}{% else %}{% static 'img/icons/scrap.svg' %}{% endif %}"
+      alt="스크랩" />
+  </button></dt>
+<dd>
+
+</dd>
+
       </dl>
     </div>
 
@@ -98,4 +114,22 @@
 
   </div>
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.scrap-btn').forEach((btn) => {
+    const img = btn.querySelector('img');
+    const on  = btn.dataset.scrapOn;
+    const off = btn.dataset.scrapOff;
+
+    btn.addEventListener('click', () => {
+      const isOn = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', isOn ? 'false' : 'true');
+      img.src = isOn ? off : on;
+      // TODO: fetch로 서버 반영
+    });
+  });
+});
+</script>
+
 {% endblock %}
