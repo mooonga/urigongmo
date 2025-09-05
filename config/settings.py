@@ -144,14 +144,6 @@ USE_I18N = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-# 개발 중에 사용하는 정적 파일 위치
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # 또는 os.path.join(BASE_DIR, 'static')
-]
-
-# collectstatic으로 모아질 위치 (서버 배포 시 사용됨)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # 💡 다른 폴더로!
-
 # 로그인 관련 설정
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'  # 로그인 후 돌아갈 기본 URL(Home)
@@ -163,6 +155,11 @@ LOGIN_REDIRECT_URL = '/'  # 로그인 후 돌아갈 기본 URL(Home)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.User'
+
+# 개발 중에 사용하는 정적 파일 위치
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # 또는 os.path.join(BASE_DIR, 'static')
+]
 
 import os
 STATIC_URL = '/static/'
