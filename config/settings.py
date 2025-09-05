@@ -24,17 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-3&@fqyg7ok9vp9gw+swce1+$gyvr0kv7#xa6m#h+@7!n_brkde'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 #urigongmo-only 시크릿키
 #SECRET_KEY = 'django-insecure-=^t-b-o5$xlkc29*_jayelq=1c5(32j^r6!h817kfb*w$#1p-j'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 
@@ -74,7 +68,6 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 "django.template.context_processors.request",
@@ -156,10 +149,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.User'
 
-# 개발 중에 사용하는 정적 파일 위치
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # 또는 os.path.join(BASE_DIR, 'static')
-]
+# # 개발 중에 사용하는 정적 파일 위치
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static',  # 또는 os.path.join(BASE_DIR, 'static')
+# ]
 
 import os
 STATIC_URL = '/static/'
