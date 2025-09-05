@@ -103,11 +103,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #     }
 # }
 
-# 현재는 SQLite 사용
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Django', # RDS에서 생성한 초기 DB이름
+        'USER': 'admin',  # RDS에 접속시 사용 할 계정명
+        'PASSWORD': 'Pa$$w0rd', # 지정 된 계정의 패스워드 
+        'HOST': 'myweb-rds.c1sikououi5f.ap-northeast-2.rds.amazonaws.com',
+        'PORT': '3306', # RDS에서 생성한 DB 인스턴스 엔드포인트 및 접속 포트
     }
 }
 
@@ -141,8 +144,6 @@ USE_I18N = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
-
 # 개발 중에 사용하는 정적 파일 위치
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # 또는 os.path.join(BASE_DIR, 'static')
@@ -163,7 +164,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.User'
 
-# media
+import os
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
