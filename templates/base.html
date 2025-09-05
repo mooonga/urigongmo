@@ -16,8 +16,14 @@
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
   <link rel="stylesheet" href="{% static 'css/account.css' %}">
 
+  {# clean 와이어프레임 #}
   {% if request.GET.wf == '1' %}
-  <link id="wf-css" rel="stylesheet" href="{% static 'css/wireframe.css' %}">
+    <link id="wf-css" rel="stylesheet" href="{% static 'css/wireframe.css' %}">
+  {% endif %}
+
+  {# sketch 와이어프레임 #}
+  {% if request.GET.wf == 'sketch' %}
+    <link id="wf-sketch" rel="stylesheet" href="{% static 'css/wireframe-sketch.css' %}">
   {% endif %}
 
   {% block head_extra %}{% endblock %}
@@ -25,16 +31,20 @@
   <script>
   (function () {
     const qs = new URLSearchParams(location.search);
-    if (qs.get('wf') === '1') document.cookie = "wf=1;path=/;Max-Age=2592000";
-    if (qs.get('wf') === '0') document.cookie = "wf=;Max-Age=0;path=/";
-
-    // 쿠키가 있으면 wireframe.css 주입(중복 방지)
-    if (document.cookie.includes('wf=1') && !document.getElementById('wf-css')) {
-      const link = document.createElement('link');
-      link.id = 'wf-css';
-      link.rel = 'stylesheet';
-      link.href = '{% static "css/wireframe.css" %}';
-      document.head.appendChild(link);
+    if (qs.has('wf')) {
+      document.cookie = "wf=" + qs.get('wf') + ";path=/;Max-Age=2592000";
+    }
+    const m = document.cookie.match(/(?:^|;\s*)wf=([^;]+)/);
+    if (m) {
+      var val = m[1];
+      var href = val === 'sketch'
+        ? "{% static 'css/wireframe-sketch.css' %}"
+        : (val === '1' ? "{% static 'css/wireframe.css' %}" : null);
+      if (href && !document.getElementById('wf-auto')) {
+        var link = document.createElement('link');
+        link.id = 'wf-auto'; link.rel = 'stylesheet'; link.href = href;
+        document.head.appendChild(link);
+      }
     }
   })();
   </script>

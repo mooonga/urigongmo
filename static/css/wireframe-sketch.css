@@ -1,0 +1,63 @@
+/* ====== Sketch Wireframe Mode (Balsamiq-like) ====== */
+
+/* 전역 톤 */
+* { box-shadow: none !important; text-shadow: none !important; animation: none !important; }
+html, body { background:#fff !important; color:#111 !important;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important; }
+a, h1,h2,h3,h4,h5,h6 { color:#111 !important; }
+
+/* 굵은 윤곽선 + 약간 둥근 모서리 */
+header, nav, main, section, article, aside, footer,
+div, ul, li, form, fieldset, table, thead, tbody, tfoot, tr, th, td, figure,
+.card, .panel, .box, .widget {
+  outline: 2px solid #111 !important;
+  background:#fff !important;
+  border-radius: 8px !important;
+}
+
+/* 버튼/입력 */
+button, input[type=button], input[type=submit], .btn {
+  border: 1px solid #111 !important; background:#fff !important; color:#111 !important;
+  font-weight: 700 !important; text-transform: uppercase !important; border-radius: 8px !important;
+}
+input, select, textarea {
+  border: 1px solid #111 !important; background:#fff !important; color:#111 !important; border-radius: 8px !important;
+}
+
+/* 이미지 → 회색 박스 + X 표시
+   :has() 사용해서 img/picture를 감싼 컨테이너에 오버레이 생성 (Chrome/Edge/Safari 최신 지원) */
+img, picture, svg { opacity: 0 !important; } /* 원본은 안 보이게 */
+:where(div, a, span, figure, li, section, article, header, footer)
+  :has(> img), 
+:where(div, a, span, figure, li, section, article, header, footer)
+  :has(> picture) {
+  position: relative !important;
+  background:#eee !important;
+  outline: 2px solid #111 !important; border-radius:8px !important;
+}
+:where(div, a, span, figure, li, section, article, header, footer)
+  :has(> img)::after,
+:where(div, a, span, figure, li, section, article, header, footer)
+  :has(> picture)::after {
+  content:""; position:absolute; inset:10%;
+  background:
+    linear-gradient(45deg, #111 0 2px, transparent 0) center/100% 100% no-repeat,
+    linear-gradient(-45deg, #111 0 2px, transparent 0) center/100% 100% no-repeat;
+  opacity:.8; pointer-events:none;
+}
+
+/* 카드/리스트 간격을 살짝 벌려서 레이아웃이 더 또렷하게 */
+.card, .item, .list, .grid > * { padding:.6rem !important; margin:.6rem !important; }
+
+/* 표/리스트 줄 간격 */
+table { border-collapse: separate !important; border-spacing: 0 !important; }
+th, td { border: 2px solid #111 !important; }
+
+/* 헤더/푸터/사이드의 배경색은 아주 옅게 */
+header, nav, aside, footer { background:#f5f5f5 !important; }
+
+
+/* 아이콘이 너무 사라지면 svg만은 보이게 하려면 아래 주석 해제
+svg { opacity: 1 !important; fill:#111 !important; color:#111 !important; }
+*/
+
