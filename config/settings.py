@@ -99,11 +99,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Django', # RDS에서 생성한 초기 DB이름
-        'USER': 'admin',  # RDS에 접속시 사용 할 계정명
-        'PASSWORD': 'Pa$$w0rd', # 지정 된 계정의 패스워드 
+        'NAME': 'Django',
+        'USER': 'admin',
+        'PASSWORD': 'Pa$$w0rd',
         'HOST': 'myweb-rds.c1sikououi5f.ap-northeast-2.rds.amazonaws.com',
-        'PORT': '3306', # RDS에서 생성한 DB 인스턴스 엔드포인트 및 접속 포트
+        'PORT': '3306',
     }
 }
 

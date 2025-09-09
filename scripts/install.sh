@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/ec2-user/myproject
+cd /home/ec2-user/urigongmo
 source /home/ec2-user/venv/bin/activate
 pip install -r requirements.txt
 python manage.py migrate
