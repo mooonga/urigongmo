@@ -2,13 +2,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
-from .models import UserProfile
+from .models import UserProfile, BusinessProfile
 
 User = get_user_model()  # 커스텀 User 모델 불러오기
 
 class SignupForm(UserCreationForm):
     nickname = forms.CharField(label='닉네임', max_length=30)
     email = forms.EmailField(label='이메일')
+    role = forms.ChoiceField(choices=User.ROLE_CHOICES, label='회원 분류')
 
     class Meta:
         model = User
@@ -46,3 +47,8 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['nickname', 'age', 'region', 'bio', 'interests']
+
+class BusinessProfileForm(forms.ModelForm):
+    class Meta:
+        model = BusinessProfile
+        fields = ['company_name', 'business_type', 'phone_number', 'contact_email']

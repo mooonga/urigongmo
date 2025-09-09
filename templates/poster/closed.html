@@ -1,0 +1,66 @@
+{# poster/templates/poster/closed.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}종료 공모전 – urigongmo{% endblock %}
+
+{% block content %}
+  {% include 'partials/search.html' %}
+
+  <section class="poster-list">
+    <header class="section-header">
+      <h2 class="section-title">종료 공모전</h2>
+
+      <form method="get" class="sort-form">
+  <input type="hidden" name="q" value="{{ query }}">
+  <input type="hidden" name="category" value="{{ selected_category }}">
+  <label for="sort-closed" class="sort-label">정렬</label>
+  <select id="sort-closed" class="sort-select" name="sort" onchange="this.form.submit()">
+    <option value="created_desc"  {% if sort == 'created_desc' %}selected{% endif %}>최신 등록 순</option>
+    <option value="end_date_asc"  {% if sort == 'end_date_asc' %}selected{% endif %}>마감일 빠른 순</option>
+    <option value="end_date_desc" {% if sort == 'end_date_desc' %}selected{% endif %}>마감일 늦은 순</option>
+  </select>
+</form>
+
+    </header>
+
+    <div class="poster-grid">
+      {% for poster in posters %}
+        <article class="contest-card">
+          <a href="{% url 'poster:poster_detail' poster.pk %}">
+            {% if poster.image %}
+              <img src="{{ poster.image.url }}" alt="{{ poster.title }}" class="contest-image">
+            {% else %}
+              <img src="{% static 'img/posterPlaceholder.jpg' %}" alt="이미지 없음" class="contest-image">
+            {% endif %}
+            <div class="contest-details">
+              <span class="contest-category">{{ poster.category }}</span>
+              <p class="contest-period">{{ poster.start_date }} – {{ poster.end_date }}</p>
+              <h3 class="contest-title">{{ poster.title }}</h3>
+            </div>
+          </a>
+        </article>
+      {% empty %}
+        <p class="no-results">종료된 공모전이 없습니다.</p>
+      {% endfor %}
+    </div>
+
+    <nav class="pagination" aria-label="페이지">
+      {% if page_obj.has_previous %}
+        <a class="prev" href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query|urlencode }}{% endif %}{% if selected_category %}&category={{ selected_category|urlencode }}{% endif %}&sort={{ sort }}">« 이전</a>
+      {% endif %}
+
+      {% for num in paginator.page_range %}
+        {% if page_obj.number == num %}
+          <span class="current">{{ num }}</span>
+        {% else %}
+          <a href="?page={{ num }}{% if query %}&q={{ query|urlencode }}{% endif %}{% if selected_category %}&category={{ selected_category|urlencode }}{% endif %}&sort={{ sort }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="next" href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query|urlencode }}{% endif %}{% if selected_category %}&category={{ selected_category|urlencode }}{% endif %}&sort={{ sort }}">다음 »</a>
+      {% endif %}
+    </nav>
+  </section>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/community_board.css' %}">
+
+<div class="board-wrapper">
+  <h1 class="board-title">
+    {% if board_type == 'qna' %}질문 답변{% elif board_type == 'team' %}팀원 모집{% else %}정보 공유{% endif %}
+  </h1>
+
+  <div class="top-bar">
+    <!-- 검색창 -->
+    <form method="get" class="search-form">
+      <input type="text" name="q" placeholder="제목으로 검색" value="{{ request.GET.q }}">
+      <button type="submit" class="btn-search">검색</button>
+    </form>
+
+    <!-- 글 작성 버튼 -->
+    <a href="{% url 'community:post_create' board_type %}" class="btn-write">글 작성</a>
+  </div>
+
+  <!-- 게시글 테이블 -->
+  <table class="board-table">
+    <thead>
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in posts %}
+        <tr>
+          <td>{{ post.id }}</td>
+          <td class="title-cell">
+            <a href="{% url 'community:post_detail' board_type=board_type pk=post.pk %}">{{ post.title }}</a>
+          </td>
+          <td>
+            {% if post.author.userprofile %}
+              {{ post.author.userprofile.nickname }}
+            {% else %}
+              {{ post.author.username }}
+            {% endif %}
+          </td>
+          <td>{{ post.created_at|date:"Y.m.d" }}</td>
+          <td>{{ post.views }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">등록된 글이 없습니다.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- footer 밀어내기 -->
+<div class="page-spacer"></div>
+
+{% endblock %}

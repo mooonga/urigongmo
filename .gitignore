@@ -1,6 +1,7 @@
 # Python 관련
 __pycache__/
 *.py[cod]
+*.pyc
 
 # VS Code 설정
 .vscode/
@@ -17,3 +18,6 @@ media/poster_images/
 
 #kg_2
 kg_2/
+
+#db 충돌 방지
+db.sqlite3

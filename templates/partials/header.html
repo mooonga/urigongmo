@@ -9,37 +9,45 @@
     </div>
 
     <nav class="main-nav">
-      <ul>
-        <li><a href="{% url 'home:index' %}" class="nav-link active">홈</a></li>
-        <li class="has-dropdown">
-          <a href="{% url 'poster:ongoing' %}" class="nav-link">공모전</a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'poster:ongoing' %}">진행 중인 공모전</a></li>
-            <li><a href="{% url 'poster:closed' %}">종료 공모전</a></li>
-          </ul>
-        </li>
+      {% with app=request.resolver_match.app_name name=request.resolver_match.url_name %}
+<ul>
+  <li>
+    <a href="{% url 'home:index' %}" class="nav-link {% if app == 'home' and name == 'index' %}active{% endif %}">홈</a>
+  </li>
 
-        <li class="has-dropdown">
-          <a href="#" class="nav-link">커뮤니티</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">팀원 모집</a></li>
-            <li><a href="#">정보 공유</a></li>
-            <li><a href="#">질문 답변</a></li>
-          </ul>
-        </li>
+  <li class="has-dropdown">
+    <a href="{% url 'poster:poster_ongoing' %}" class="nav-link {% if app == 'poster' %}active{% endif %}">공모전</a>
+    <ul class="dropdown-menu">
+      <li><a href="{% url 'poster:poster_ongoing' %}">진행 중인 공모전</a></li>
+      <li><a href="{% url 'poster:poster_closed' %}">종료 공모전</a></li>
+    </ul>
+  </li>
 
-        <li><a href="{% url 'home:about' %}" class="nav-link">소개</a></li>
+  <li class="has-dropdown">
+    <a href="{% url 'community:community_home' %}" class="nav-link {% if app == 'community' %}active{% endif %}">커뮤니티</a>
+    <ul class="dropdown-menu">
+      <li><a href="{% url 'community:post_list' board_type='team' %}">팀원 모집</a></li>
+      <li><a href="{% url 'community:post_list' board_type='info' %}">정보 공유</a></li>
+      <li><a href="{% url 'community:post_list' board_type='qna' %}">질문 답변</a></li>
+    </ul>
+  </li>
 
-        <li class="has-dropdown">
-          <a href="{% url 'account:profile' %}" class="nav-link">마이페이지</a>
-          <ul class="dropdown-menu">
-            <li><a href="{% url 'account:profile' %}">프로필</a></li>
-            <li><a href="{% url 'account:saved' %}">저장된 콘텐츠</a></li>
-            <li><a href="{% url 'account:myposts' %}">내 게시글</a></li>
-            <li><a href="{% url 'account:mycomments' %}">내 댓글</a></li>
-          </ul>
-        </li>
-      </ul>
+  <li>
+    <a href="{% url 'home:about' %}" class="nav-link {% if app == 'home' and name == 'about' %}active{% endif %}">소개</a>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="{% url 'account:profile' %}" class="nav-link {% if app == 'account' %}active{% endif %}">마이페이지</a>
+    <ul class="dropdown-menu">
+      <li><a href="{% url 'account:profile' %}">프로필</a></li>
+      <li><a href="{% url 'account:saved' %}">저장된 콘텐츠</a></li>
+      <li><a href="{% url 'account:myposts' %}">내 게시글</a></li>
+      <li><a href="{% url 'account:mycomments' %}">내 댓글</a></li>
+    </ul>
+  </li>
+</ul>
+{% endwith %}
+
     </nav>
 
     <div class="login-button-wrapper">

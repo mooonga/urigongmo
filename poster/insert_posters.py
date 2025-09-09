@@ -1,5 +1,6 @@
 from openpyxl import load_workbook
 from PIL import Image
+from datetime import datetime
 import io
 import os
 import django
@@ -34,12 +35,15 @@ for idx, image in enumerate(ws._images):
     title = ws[f'B{cell_row}'].value
     year = str(ws[f'C{cell_row}'].value)
     description = ws[f'E{cell_row}'].value  # 범위와 내용
+    start_date = datetime.strptime(ws[f'H{cell_row}'].value, "%Y.%m.%d").date()
+    end_date = datetime.strptime(ws[f'I{cell_row}'].value, "%Y.%m.%d").date()
 
     # 모델에 저장
     Poster.objects.create(
         title=title,
-        year=year,
         image=f'poster_images/{image_name}',
+        start_date=start_date,
+        end_date=end_date,
         description=description
     )
 

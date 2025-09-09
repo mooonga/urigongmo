@@ -1,0 +1,255 @@
+/* =========================================================
+   poster.css  —  Poster(공모전) 목록/디테일 전용 스타일
+   - 대상 페이지: ongoing.html, closed.html, detail.html
+   - HTML 클래스 통일:
+       .ongoing-contests  -> .poster-list
+       .ongoing-grid      -> .poster-grid
+       진행/종료 구분은 .is-ongoing / .is-closed 수식 클래스 사용
+   ========================================================= */
+
+/* ============ 공통: 목록 래퍼/헤더/정렬 ============ */
+.poster-list {
+  max-width: 1280px;
+  margin: 0 auto 64px;
+  padding: 0 32px;
+}
+.poster-list .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0;
+}
+
+/* 정렬 컨트롤(기존 톤 유지) */
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sort-label {
+  font-size: 14px;
+  color: #374151;
+}
+.sort-select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ============ 공통: 카드 그리드 ============ */
+.poster-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
+  gap: 24px;
+}
+
+/* 카드(기존 카드 스타일과 호환) */
+.contest-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.contest-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+.contest-details {
+  padding: 16px;
+  flex: 1;
+}
+.contest-category {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+.contest-category.design { color: #2563eb; }
+.contest-category.idea   { color: #16a34a; }
+.contest-category.essay  { color: #9333ea; }
+.contest-category.photo  { color: #ea580c; }
+
+.contest-period {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+.contest-title {
+  font-family: "Pretendard-SemiBold", sans-serif;
+  font-size: 16px;
+  color: #111827;
+  margin: 0;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  color: #6b7280;
+  text-align: center;
+  padding: 24px 0;
+}
+
+/* 진행/종료 상태별 미세 톤 (선택 사항) */
+.poster-list.is-closed .contest-image { filter: grayscale(15%); }
+.poster-list.is-closed .contest-period { color: #9ca3af; }
+
+/* 페이지네이션 (종료 목록에서 사용) */
+.pagination {
+  max-width: 1280px;
+  margin: 60px auto 64px;
+  padding: 0 32px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.pagination a,
+.pagination span {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #374151;
+  font-size: 14px;
+}
+.pagination .current {
+  background-color: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+/* ============ 디테일 페이지 ============ */
+/* 전체 배경 & 컨테이너 */
+.detail-page {
+  background-color: #f9fafb;
+  padding: 40px 0;
+}
+.detail-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+/* 뒤로가기 */
+.back-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #374151;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* 제목 */
+.section-title.detail-title {
+  margin-top: 12px;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* 포스터 + 정보 */
+.detail-main-info {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+}
+.poster-figure {
+  flex: 0 0 400px;
+  border: 1px dashed #d1d5db;
+  padding: 16px;
+  text-align: center;
+  color: #6b7280;
+}
+.poster-figure img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* 정보 DL */
+.detail-dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+  column-gap: 36px;
+  row-gap: 0;
+  align-items: center;
+}
+.detail-dl dt {
+  text-align: left;
+  color: #6b7280;
+  margin: 0 0 0 12px;
+}
+.detail-dl dd {
+  margin: 0;
+  color: #111827;
+}
+.detail-dl dd a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+.detail-dl .highlight {
+  color: #ef4444;
+  font-weight: 700;
+}
+/* dl 안 버튼 모양 */
+.scrap-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:24px; height:24px;         
+  border:1px solid #e5e7eb; border-radius:9999px;
+  background:#fff; cursor:pointer;
+  vertical-align:middle;   
+}
+.scrap-btn img{ width:14px; height:14px; display:block; } 
+.scrap-btn:hover{ background:#f9fafb; }
+.scrap-btn[aria-pressed="true"]{ border-color:#2563eb; background:#eff6ff; }
+
+/* 탭 */
+.detail-tabs {
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  gap: 32px;
+  font-size: 16px;
+  margin: 32px 0 24px;
+}
+.detail-tabs .tab-link {
+  padding-bottom: 12px;
+  color: #4b5563;
+  text-decoration: none;
+}
+.detail-tabs .tab-link.active {
+  border-bottom: 2px solid #2563eb;
+  color: #2563eb;
+}
+
+/* 탭 콘텐츠 */
+.tab-content { display: none; padding-bottom: 24px; }
+.tab-content.active { display: block; }
+
+/* 플레이스홀더 */
+.placeholder-box {
+  border: 1px dashed #d1d5db;
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+}
+
+/* ============ 반응형 ============ */
+@media (max-width: 1200px) {
+  .poster-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 1024px) {
+  .poster-grid { grid-template-columns: repeat(2, 1fr); }
+  .detail-main-info { flex-direction: column; }
+  .poster-figure { flex-basis: auto; }
+}
+@media (max-width: 640px) {
+  .poster-grid { grid-template-columns: 1fr; }
+}

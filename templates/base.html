@@ -1,4 +1,5 @@
 <!--templates/base.html-->
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="ko">
@@ -10,6 +11,43 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/header_footer.css' %}">
   <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+  <link rel="stylesheet" href="{% static 'css/community_board.css' %}">
+  <link rel="stylesheet" href="{% static 'css/poster.css' %}">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'css/account.css' %}">
+
+  {# clean 와이어프레임 #}
+  {% if request.GET.wf == '1' %}
+    <link id="wf-css" rel="stylesheet" href="{% static 'css/wireframe.css' %}">
+  {% endif %}
+
+  {# sketch 와이어프레임 #}
+  {% if request.GET.wf == 'sketch' %}
+    <link id="wf-sketch" rel="stylesheet" href="{% static 'css/wireframe-sketch.css' %}">
+  {% endif %}
+
+  {% block head_extra %}{% endblock %}
+
+  <script>
+  (function () {
+    const qs = new URLSearchParams(location.search);
+    if (qs.has('wf')) {
+      document.cookie = "wf=" + qs.get('wf') + ";path=/;Max-Age=2592000";
+    }
+    const m = document.cookie.match(/(?:^|;\s*)wf=([^;]+)/);
+    if (m) {
+      var val = m[1];
+      var href = val === 'sketch'
+        ? "{% static 'css/wireframe-sketch.css' %}"
+        : (val === '1' ? "{% static 'css/wireframe.css' %}" : null);
+      if (href && !document.getElementById('wf-auto')) {
+        var link = document.createElement('link');
+        link.id = 'wf-auto'; link.rel = 'stylesheet'; link.href = href;
+        document.head.appendChild(link);
+      }
+    }
+  })();
+  </script>
 </head>
 <body>
   {% include 'partials/header.html' %}
@@ -17,7 +55,8 @@
     {% block content %}{% endblock %}
   </main>
   {% include 'partials/footer.html' %}
-
   {% block extra_scripts %}{% endblock %}
+  {% block scripts %}{% endblock %}
+
 </body>
 </html>

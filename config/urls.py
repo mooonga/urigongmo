@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 # config/urls.py
-from contest import views
+#from contest import views
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -25,13 +25,9 @@ from poster import views as poster_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('contest/', include('contest.urls', namespace='contest')),
+    #path('contest/', include('contest.urls', namespace='contest')),
     path('', include(('home.urls', 'home'), namespace='home')),  # 메인페이지 경로
-    path('freeboard/', include('freeboard.urls')),  # 자유게시판
+    path('community/', include('community.urls')),
     path('poster/', include(('poster.urls', 'poster'), namespace='poster')),  #공모전
     path('account/', include('account.urls')),
-]
-
-# 개발 환경에서만 media 파일 서빙 (이미지, pdf, 등)
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,10 +1,7 @@
-# account/mypage/user_views.py
+#account/mypage/user_views.py
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from freeboard.models import Post, Comment
-from account.models import UserProfile, BusinessProfile
-from freeboard.models import SavedPost
-from contest.models import SavedContest
+from community.models import Post, Comment, SavedPost
 
 # 1. 프로필 보기
 @login_required
@@ -22,28 +19,24 @@ def profile_view(request):
 # 2. 저장한 콘텐츠 보기
 @login_required
 def saved_view(request):
-    saved_contests = SavedContest.objects.filter(user=request.user)
+    #saved_contests = SavedContest.objects.filter(user=request.user)
     saved_posts = SavedPost.objects.filter(user=request.user)
 
     return render(request, 'mypage/saved.html', {
-        'saved_contests': saved_contests,
+        #'saved_contests': saved_contests,
         'saved_posts': saved_posts,
     })
 
 # 3. 내가 쓴 게시글
 @login_required
-def myposts_view(request):
-    posts = Post.objects.filter(author=request.user)
-
-    return render(request, 'mypage/myposts.html', {
-        'posts': posts,
-    })
+def my_posts(request):
+    posts = Post.objects.filter(author=request.user).order_by('-created_at')
+    return render(request, 'mypage/my_posts.html', {
+        'my_posts': posts})
 
 # 4. 내가 단 댓글
 @login_required
-def mycomments_view(request):
-    comments = Comment.objects.filter(author=request.user)
-
-    return render(request, 'mypage/mycomments.html', {
-        'comments': comments,
-    })
+def my_comments(request):
+    comments = Comment.objects.filter(author=request.user).order_by('-created_at')
+    return render(request, 'mypage/my_comments.html', {
+        'my_comments': comments})
