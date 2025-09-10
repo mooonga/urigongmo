@@ -30,4 +30,5 @@ urlpatterns = [
     path('community/', include('community.urls')),
     path('poster/', include(('poster.urls', 'poster'), namespace='poster')),  #공모전
     path('account/', include('account.urls')),
+    path('health-check/', TemplateView.as_view(template_name="health-check.html"), name='health-check'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
