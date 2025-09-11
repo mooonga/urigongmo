@@ -22,6 +22,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from poster import views as poster_views
+from django.http import HttpResponse
+
+
+def health(_):
+    return HttpResponse("OK", content_type="text/plain")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +35,5 @@ urlpatterns = [
     path('community/', include('community.urls')),
     path('poster/', include(('poster.urls', 'poster'), namespace='poster')),  #공모전
     path('account/', include('account.urls')),
-    path('health-check/', TemplateView.as_view(template_name="health-check.html"), name='health-check'),
+    path('health-check/', health, name='health-check'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

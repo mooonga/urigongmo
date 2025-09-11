@@ -102,7 +102,7 @@ DATABASES = {
         'NAME': 'Django',
         'USER': 'admin',
         'PASSWORD': 'Pa$$w0rd',
-        'HOST': 'myweb-rds.c1sikououi5f.ap-northeast-2.rds.amazonaws.com',
+        'HOST': 'myweb-rds.c7s2s46ggao2.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
