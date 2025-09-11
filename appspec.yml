@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/myproject
+    destination: /home/ec2-user/urigongmo
 hooks:
   ApplicationStop:
     - location: scripts/stop.sh
