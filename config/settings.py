@@ -111,7 +111,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://myweb-redis.hvdgxo.ng.0001.apn2.cache.amazonaws.com:6379/1", # "/1" = DB 인덱스 0 지정해도 상관없음
+        "LOCATION": "redis://uriweb-redis.3kzyfo.ng.0001.apn2.cache.amazonaws.com:6379/1", # "/1" = DB 인덱스 0 지정해도 상관없음
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
