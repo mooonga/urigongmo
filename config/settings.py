@@ -107,6 +107,26 @@ DATABASES = {
     }
 }
 
+# Redis 캐시 설정
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://myweb-redis.hvdgxo.ng.0001.apn2.cache.amazonaws.com:6379/1", # "/1" = DB 인덱스 0 지정해도 상관없음
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+# 세션 엔진 Redis로 변경
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+# 세션 재갱신 및 세션 만료시간 설정 (초 단위)
+SESSION_SAVE_EVERY_REQUEST = True # 새로운 Request 발생 시 세션 만료 시간 갱신
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False # 브라우저 클로즈시 세션 만료 사용 안 함
+SESSION_COOKIE_AGE = 300  # 300초 = 5분
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

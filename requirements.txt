@@ -12,3 +12,4 @@ tzdata==2025.2
 Django==5.2.4
 mysqlclient
 mod_wsgi
+django-redis

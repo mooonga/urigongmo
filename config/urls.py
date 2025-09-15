@@ -23,6 +23,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from poster import views as poster_views
 from django.http import HttpResponse
+from config import views as configviews
 
 
 def health(_):
@@ -36,4 +37,5 @@ urlpatterns = [
     path('poster/', include(('poster.urls', 'poster'), namespace='poster')),  #공모전
     path('account/', include('account.urls')),
     path('health-check/', health, name='health-check'),
+    path('check-session/', configviews.check_session),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
